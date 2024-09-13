@@ -62,4 +62,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+    // Relation : un utilisateur peut liker plusieurs photos
+    public function likedPhotos()
+    {
+        return $this->belongsToMany(Photo::class, 'user_photo_likes');
+    }
 }
