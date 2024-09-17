@@ -2,49 +2,141 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePhotoRequest;
-use App\Http\Requests\UpdatePhotoRequest;
 use App\Models\Photo;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Lister toutes les photos
     public function index()
     {
-        //
+        $photos = Photo::with('user', 'categories')->get();
+        return response()->json($photos);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePhotoRequest $request)
+    // Afficher une photo spécifique
+    public function show($id)
     {
-        //
+        $photo = Photo::with('user', 'categories')->findOrFail($id);
+        return response()->json($photo);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Photo $photo)
+    // Créer une nouvelle photo (seulement pour les photographes)
+    public function store(Request $request)
     {
-        //
+        // Autorise seulement les partenaires et les administrateurs à ajouter des photos
+        if (Auth::user()->role !== 'partner' && Auth::user()->role !== 'admin') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        // Valider les données du formulaire, y compris le fichier image
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation pour les fichiers images
+            'category_ids' => 'array|nullable', // Catégories associées
+        ]);
+
+        // Gestion de l'upload de l'image
+        if ($request->hasFile('image')) {
+            // Stocker l'image dans le répertoire 'public/photos'
+            $imagePath = $request->file('image')->store('photos', 'public');
+        }
+
+        // Créer une nouvelle photo dans la base de données
+        $photo = Photo::create([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'image_path' => $imagePath, // Enregistre le chemin de l'image
+            'user_id' => Auth::id(),
+        ]);
+
+        // Associe les catégories si elles sont fournies
+        if (isset($validatedData['category_ids'])) {
+            $photo->categories()->sync($validatedData['category_ids']);
+        }
+
+        return response()->json($photo, 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePhotoRequest $request, Photo $photo)
-    {
-        //
+
+
+    // Modifier une photo (uniquement par le photographe qui l'a créée ou l'admin)
+    public function update(Request $request, $id)
+{
+    $photo = Photo::findOrFail($id);
+
+    // Vérifie que l'utilisateur est bien le propriétaire de la photo ou un admin
+    if (Auth::id() !== $photo->user_id && Auth::user()->role !== 'admin') {
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Photo $photo)
+    // Valide les nouvelles données
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Facultatif pour l'image
+    ]);
+
+    // Si une nouvelle image est uploadée, supprimer l'ancienne et stocker la nouvelle
+    if ($request->hasFile('image')) {
+        // Supprime l'ancienne image
+        if (Storage::disk('public')->exists($photo->image_path)) {
+            Storage::disk('public')->delete($photo->image_path);
+        }
+
+        // Stocke la nouvelle image
+        $imagePath = $request->file('image')->store('photos', 'public');
+        $photo->image_path = $imagePath; // Met à jour le chemin de l'image
+    }
+
+    // Mettre à jour les autres champs
+    $photo->title = $validatedData['title'];
+    $photo->description = $validatedData['description'] ?? $photo->description;
+    $photo->save();
+
+    return response()->json($photo);
+}
+
+
+    // Supprimer une photo
+    
+
+    public function destroy($id)
     {
-        //
+        $photo = Photo::findOrFail($id);
+    
+        // Vérifie que l'utilisateur est bien le propriétaire de la photo ou un admin
+        if (Auth::id() !== $photo->user_id && Auth::user()->role !== 'admin') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+    
+        // Supprimer l'image du stockage si elle existe
+        if (Storage::disk('public')->exists($photo->image_path)) {
+            Storage::disk('public')->delete($photo->image_path);
+        }
+    
+        // Supprimer la photo de la base de données
+        $photo->delete();
+    
+        return response()->json(['message' => 'Photo supprimée avec succès']);
+    }
+    
+
+    // Liker une photo
+    public function like($id)
+    {
+        $photo = Photo::findOrFail($id);
+
+        // Vérifie si l'utilisateur a déjà liké la photo
+        if ($photo->likedByUsers()->where('user_id', Auth::id())->exists()) {
+            return response()->json(['message' => 'Vous avez déjà liké cette photo'], 400);
+        }
+
+        $photo->likedByUsers()->attach(Auth::id());
+
+        return response()->json(['message' => 'Photo likée avec succès']);
     }
 }

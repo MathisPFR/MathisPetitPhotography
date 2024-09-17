@@ -27,6 +27,7 @@ class AuthController extends Controller
             'role' => $validatedData['role'], // Assigner le rôle choisi (user ou partner)
         ]);
 
+
         // Crée un token API pour l'utilisateur après l'inscription
         $token = $user->createToken('auth_token')->plainTextToken;
 
