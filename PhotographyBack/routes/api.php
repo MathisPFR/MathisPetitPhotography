@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\UserController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -47,4 +48,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('partners/{id}', [PartnerController::class, 'show']); // Voir les informations d'un partenaire
     Route::put('partners/{id}', [PartnerController::class, 'update']); // Mettre à jour les informations du partenaire
 });
+
+
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('users', [UserController::class, 'index']); // Lister tous les utilisateurs (admin)
+    Route::get('users/{id}', [UserController::class, 'show']); // Afficher un utilisateur spécifique
+    Route::put('users/{id}', [UserController::class, 'update']); // Mettre à jour un utilisateur
+    Route::delete('users/{id}', [UserController::class, 'destroy']); // Supprimer un utilisateur (admin)
+});
+
+
 
