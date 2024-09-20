@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller
 {
     // Lister tous les utilisateurs (admin uniquement)
@@ -69,5 +70,24 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(['message' => 'Utilisateur supprimé avec succès']);
+    }
+
+
+   
+
+
+    public function getLikedPhotos()
+    {
+        $user = Auth::user();
+
+        // Vérifie si l'utilisateur est bien authentifié
+        if (!$user) {
+            return response()->json(['error' => 'Utilisateur non authentifié'], 401);
+        }
+
+        // Récupérer les photos likées par l'utilisateur authentifié
+        $likedPhotos = $user->likedPhotos()->get();
+
+        return response()->json($likedPhotos);
     }
 }

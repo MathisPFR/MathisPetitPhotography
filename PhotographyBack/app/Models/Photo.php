@@ -26,7 +26,6 @@ class Photo extends Model
     // Relation : une photo peut être likée par plusieurs utilisateurs
     public function likedByUsers()
     {
-        return $this->belongsToMany(User::class, 'user_photo_likes');
+        return $this->belongsToMany(User::class, 'user_photo_likes')->withTimestamps();
     }
 }
-

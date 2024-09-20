@@ -60,3 +60,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('liked-photos', [UserController::class, 'getLikedPhotos']);
+});

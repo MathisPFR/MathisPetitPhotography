@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -72,6 +73,9 @@ class User extends Authenticatable
     // Relation : un utilisateur peut liker plusieurs photos
     public function likedPhotos()
     {
-        return $this->belongsToMany(Photo::class, 'user_photo_likes');
+        return $this->belongsToMany(Photo::class, 'user_photo_likes')->withTimestamps();
     }
+
+
+    
 }

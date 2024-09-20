@@ -72,4 +72,6 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Déconnecté avec succès'], 200);
     }
+
+
 }
