@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PartnerController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -38,3 +39,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('categories/{id}', [CategoryController::class, 'update']);
     Route::delete('categories/{id}', [CategoryController::class, 'destroy']);
 });
+
+
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('partners', [PartnerController::class, 'index']); // Lister tous les partenaires
+    Route::get('partners/{id}', [PartnerController::class, 'show']); // Voir les informations d'un partenaire
+    Route::put('partners/{id}', [PartnerController::class, 'update']); // Mettre à jour les informations du partenaire
+});
+

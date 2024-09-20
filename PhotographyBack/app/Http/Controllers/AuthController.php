@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,6 +27,13 @@ class AuthController extends Controller
             'password' => Hash::make($validatedData['password']),
             'role' => $validatedData['role'], // Assigner le rôle choisi (user ou partner)
         ]);
+
+
+        if ($validatedData['role'] === 'partner') {
+            Partner::create([
+                'user_id' => $user->id,
+            ]);
+        }
 
 
         // Crée un token API pour l'utilisateur après l'inscription
