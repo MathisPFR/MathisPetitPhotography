@@ -1,0 +1,152 @@
+.logo {
+    max-width: 200px;
+}
+
+.logo-phone {
+    background-color: black;
+    max-width: 50px;
+}
+
+#app {
+    height: 100%;
+  }
+  html,
+  body {
+    position: relative;
+    height: 100%;
+  }
+  
+  body {
+    background: #eee;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+ .slider {
+    
+ }
+
+
+ /* Style du conteneur du slider */
+.slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Style des slides */
+  .slide-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .slide-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(0.7);
+  }
+  
+  /* Superposition des titres sur les images */
+  .title-overlay {
+    position: absolute;
+    bottom: 40%;
+    left: 15%;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    width: 40%;
+    text-align: left;
+  }
+  
+ 
+  
+
+  /* Appliquer Roboto aux h2 */
+p {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Appliquer Space Grotesk aux h1 */
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: bold;
+  }
+
+  /* Conteneur pour l'ensemble du header */
+.header-container {
+    text-align: left;
+    color: white;
+    position: relative;
+    padding: 50px; /* Ajuste selon ton besoin */
+  }
+  
+  /* Style pour l'élément 'MATHIS PETIT' avec la ligne avant */
+  .author {
+    font-size: 12px; /* Ajuste la taille de la police selon ton besoin */
+    font-family: 'Space Grotesk', sans-serif;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+  
+  .author-line {
+    content: '';
+    display: inline-block;
+    width: 40px; /* Longueur de la ligne */
+    height: 1px;
+    background-color: white;
+    margin-right: 10px; /* Espace entre la ligne et le texte */
+  }
+  
+  /* Style pour 'Capturer' */
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 4.5em; /* Ajuste selon ton besoin */
+    margin: 0;
+    font-weight: 700;
+    color: white;
+  }
+  
+  /* Style pour 'l'éphémère' avec texte transparent et bordure */
+  .outlined-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 4.5em; /* Ajuste selon ton besoin */
+    font-weight: 700;
+    color: transparent; /* Le texte sera transparent */
+    -webkit-text-stroke: 1px white; /* Bordure du texte */
+    text-transform: lowercase; /* Si tu veux garder le style de casse */
+  }
+
+  
+  
+  
+  
+

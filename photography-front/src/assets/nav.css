@@ -1,0 +1,10 @@
+.nav-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10; /* Pour superposer au-dessus du slider */ 
+    margin: 0 auto;
+      
+}
+
