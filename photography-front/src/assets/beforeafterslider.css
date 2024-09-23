@@ -1,0 +1,13 @@
+.before-after-container {
+    width: 100%;
+    max-width: 300px; /* Ajuste selon la taille désirée */
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .before-after-container img {
+    width: 100%;
+    object-fit: cover;
+  }
+  

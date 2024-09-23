@@ -1,0 +1,38 @@
+.partners-container {
+    display: flex;
+    justify-content: space-between; /* Espace égal entre chaque logo */
+    align-items: center;
+    padding: 50px 0;
+    border-top: 1px solid #e5e5e5; /* Ligne supérieure */
+    border-bottom: 1px solid #e5e5e5; /* Ligne inférieure */
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .partner {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .partner img {
+    max-width: 150px; /* Ajuste la taille maximale du logo */
+    max-height: 100px;
+    opacity: 0.7; /* Légèrement transparent */
+    transition: opacity 0.3s ease; /* Effet de transition */
+  }
+  
+  .partner img:hover {
+    opacity: 1; /* Rétablit l'opacité au hover */
+  }
+  
+  @media (max-width: 768px) {
+    .partners-container {
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .partner img {
+      max-width: 100px;
+    }
+  }
+  

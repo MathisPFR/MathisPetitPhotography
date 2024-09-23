@@ -1,0 +1,225 @@
+/* Conteneur principal */
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px; /* Ajuste selon ton besoin */
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  
+  /* Section de texte à gauche */
+  .about-text {
+    max-width: 50%; /* Ajuste selon la taille de texte désirée */
+  }
+  
+  .subtitle {
+    font-size: 1.4em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #646464; /* Couleur pour le sous-titre */
+  }
+  
+  .title {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 10px 0;
+    line-height: 1.2;
+    color: #000000; /* Noir pour le titre */
+  }
+  
+  .description {
+    font-size: 1.4em;
+    line-height: 1.6;
+    color: #646464; /* Couleur de la description */
+  }
+  
+  .explore-button {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 1.3em;
+    font-weight: 500;
+    color: #4f46e5; /* Couleur du bouton Explorer */
+    text-decoration: none;
+    position: relative;
+  }
+  
+  .explore-button .line {
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background-color: #4f46e5; /* Couleur de la ligne */
+    margin-right: 10px;
+    position: relative;
+    top: 1px;
+  }
+  
+  /* Section d'image à droite */
+  .about-image {
+    max-width: 35%; /* Ajuste selon la taille de l'image désirée */
+  }
+  
+  .about-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+
+  /* Conteneur principal */
+.specialty-section {
+    background-image: url('images/section.png');
+
+    /* Ajoute le chemin de l'image */
+    background-size: cover;
+    background-position: center;
+    height: 300px; /* Ajuste la hauteur selon ton besoin */
+    display: flex;
+    align-items: center; /* Centrer verticalement le texte */
+    justify-content: flex-end; /* Aligner le texte à droite */
+    padding-right: 50px; /* Ajuste l'espacement à droite */
+    position: relative;
+  }
+  
+  /* Conteneur de texte */
+  .content-wrapper {
+    color: white;
+    text-align: right;
+    max-width: 600px; /* Ajuste la largeur du texte */
+  }
+  
+  /* Petit titre "PHOTO-IDIOLOGY" */
+  .small-title {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #4f46e5; /* Couleur bleue */
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  
+  /* Grand titre "Mes spécialités en photographie" */
+  .main-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+  }
+  
+
+  /* Conteneur principal pour la section */
+.specialties-section {
+    display: flex;
+    height: 400px; /* Ajuste selon tes besoins */
+  }
+  
+  /* Bloc de gauche avec les descriptions */
+  .specialties-content {
+    background-color: #000000;
+    color: white;
+    padding: 40px;
+    flex: 1;
+    margin-top: -60px;
+    z-index: 2;
+  }
+  
+  .specialty-item {
+    margin-bottom: 30px;
+  }
+  
+  .specialty-item h3 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .specialty-item p {
+    font-size: 16px;
+    color: #a0aec0; /* Couleur du texte descriptif */
+  }
+  
+  .number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #4f46e5; /* Couleur bleue pour les numéros */
+    margin-right: 10px;
+  }
+  
+  /* Bloc de droite avec l'image fixe */
+  .specialty-image {
+    flex: 1;
+    background-image: url('images/PhotosDefinitive2ou5624.jpg');
+    background-size: contain;
+    background-position: end;
+    background-attachment: fixed; /* Rend l'image fixe lorsqu'on scroll (effet parallax) */
+  }
+  
+
+  /* Conteneur principal pour la section */
+.portrait-section {
+    text-align: left;
+    padding: 150px 100px; /* Ajuste selon tes besoins */
+    background-color: white;
+    
+  }
+  
+  /* Petit sous-titre "PORTRAIT EDITION" */
+  .portrait-subtitle {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #4f46e5; /* Couleur bleue */
+    margin-bottom: 10px;
+  }
+  
+  /* Grand titre "Le meilleurs des portraits" */
+  .portrait-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: black; /* Couleur du texte */
+  }
+  
+
+/* Bloc FAQ global */
+.faq-bloc {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+  }
+  
+.faq-left-container {
+    margin-left: 200px;
+    padding: 0px;
+    width: 50%;
+}
+
+
+  /* Bloc à droite avec le fond sombre */
+  .faq-right-block {
+    background-color: #1c1c1c; /* Couleur de fond sombre */
+    width: 100%; /* Prend toute la largeur disponible */
+    max-width: 300px; /* Tu peux ajuster la largeur si nécessaire */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+
+  }
+  
+  /* Texte vertical */
+  .vertical-text {
+    color: #fff; /* Couleur du texte */
+    writing-mode: vertical-rl; /* Rend le texte vertical */
+    text-transform: uppercase;
+    font-size: 24px;
+    letter-spacing: 2px;
+    opacity: 0.8; /* Opacité pour l'effet de style */
+  }
+  
+
+ 
+
