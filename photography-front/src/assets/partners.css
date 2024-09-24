@@ -1,16 +1,16 @@
 .partners-container {
     display: flex;
-    justify-content: space-between; /* Espace égal entre chaque logo */
+    justify-content: space-evenly; /* Espace égal entre chaque logo */
     align-items: center;
     padding: 50px 0;
     border-top: 1px solid #e5e5e5; /* Ligne supérieure */
     border-bottom: 1px solid #e5e5e5; /* Ligne inférieure */
     width: 100%;
     margin: 0 auto;
+    margin-top: 100px;
   }
   
   .partner {
-    flex: 1;
     text-align: center;
   }
   

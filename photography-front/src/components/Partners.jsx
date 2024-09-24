@@ -1,5 +1,5 @@
 import React from "react";
-import "../assets/partners.css"; // Crée un fichier CSS pour styliser ce composant
+import "../assets/partners.css";
 
 const Partners = () => {
   return (

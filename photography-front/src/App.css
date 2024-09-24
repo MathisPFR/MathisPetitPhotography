@@ -142,7 +142,7 @@ p {
     font-weight: 700;
     color: transparent; /* Le texte sera transparent */
     -webkit-text-stroke: 1px white; /* Bordure du texte */
-    text-transform: lowercase; /* Si tu veux garder le style de casse */
+ /* Si tu veux garder le style de casse */
   }
 
   

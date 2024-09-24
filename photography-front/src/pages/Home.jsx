@@ -6,6 +6,7 @@ import SliderHome from "../components/SliderHome";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import Faq from "../components/Faq";
 import Partners from "../components/Partners";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -98,6 +99,9 @@ const Home = () => {
         <h5 class="portrait-subtitle">Partner</h5>
         <h2 class="portrait-title">J'ai déjà collaboré avec</h2>
         <Partners />
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );
