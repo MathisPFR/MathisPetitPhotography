@@ -2,7 +2,7 @@
 .hero-section {
     position: relative;
     height: 100vh;
-    background-image: url('./images/PhotosDefinitive16Avr2022IMG7140.jpg'); /* Remplace par le chemin de ton image */
+     /* Remplace par le chemin de ton image */
     background-size: cover;
     background-position: center;
     display: flex;

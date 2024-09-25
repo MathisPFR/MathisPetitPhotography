@@ -8,7 +8,11 @@ const Portfolio = () => {
   return (
     <div className="portfolio-container">
       <div>
-        <HeroSection />
+        <HeroSection
+          title="Bienvenu sur"
+          subtitle="mon Portfolio"
+          backgroundImage="./images/PhotosDefinitive16Avr2022IMG7140.jpg"
+        />
       </div>
       <div>
         <Photos />

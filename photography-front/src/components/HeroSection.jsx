@@ -1,14 +1,17 @@
 import React from "react";
 import "../assets/HeroSection.css";
 
-const HeroSection = () => {
+const HeroSection = ({ title, subtitle, backgroundImage }) => {
   return (
-    <div className="hero-section">
+    <div
+      className="hero-section"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <div className="hero-overlay">
         <div className="hero-content">
           <h1 className="hero-title">
-            <span className="hero-transparent">Bienvenue,</span> <br />
-            <span className="hero-title-bold">sur mon Portfolio</span>
+            <span className="hero-transparent">{title}</span> <br />
+            <span className="hero-title-bold">{subtitle}</span>
           </h1>
         </div>
       </div>
