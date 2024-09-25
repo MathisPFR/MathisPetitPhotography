@@ -1,15 +1,15 @@
 import React from "react";
 import HeroSectionLogin from "../components/HeroSectionLogin";
-import LoginForm from "../components/LoginForm";
 import "../assets/login.css";
 import Footer from "../components/Footer";
+import RegisterForm from "../components/RegisterForm";
 
 const Login = () => {
   return (
     <div className="login-container">
-      <HeroSectionLogin title="de connexion" />
+      <HeroSectionLogin title="d'enregistrement" />
       <div className="login-form-container">
-        <LoginForm />
+        <RegisterForm />
       </div>
       <div>
         <Footer />

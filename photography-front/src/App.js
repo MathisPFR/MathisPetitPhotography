@@ -13,6 +13,7 @@ import Contact from './pages/Contact';
 import NotFound from './pages/NotFound'; // pour gérer les routes non trouvées
 import { Nav } from './components/Nav';
 import Login from "./pages/Login";
+import Register from "./pages/Register"; 
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} /> {/* Ajout de la route */}
         <Route path="*" element={<NotFound />} />
 
       </Routes>

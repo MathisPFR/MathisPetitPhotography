@@ -62,12 +62,12 @@ export const Nav = () => {
           </li>
           <li>
             <NavLink
-              to="/signup"
+              to="/register"
               className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-              aria-label="Sign up"
-              title="Sign up"
+              aria-label="S'enregistrer"
+              title="S'enregistrer"
             >
-              Sign up
+              S'enregistrer
             </NavLink>
           </li>
         </ul>
@@ -161,12 +161,12 @@ export const Nav = () => {
                     </li>
                     <li>
                       <NavLink
-                        to="/signup"
+                        to="/register"
                         className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-gray-700 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                        aria-label="Sign up"
-                        title="Sign up"
+                        aria-label="S'enregistrer"
+                        title="S'enregistrer"
                       >
-                        Sign up
+                        S'enregistrer
                       </NavLink>
                     </li>
                   </ul>
