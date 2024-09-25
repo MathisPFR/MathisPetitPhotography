@@ -1,8 +1,18 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthContext"; // Importer le contexte
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, logout } = useContext(AuthContext); // Récupère l'état d'authentification et la fonction logout
+
+  const navigate = useNavigate();
+
+  // Fonction de déconnexion
+  const handleLogout = () => {
+    logout(); // Déconnexion via le contexte
+    navigate("/login");
+  };
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-full md:px-24 lg:px-8 nav-bar">
@@ -39,44 +49,106 @@ export const Nav = () => {
         </ul>
         <NavLink
           to="/"
-          aria-label="Company"
-          title="Company"
+          aria-label="logo"
+          title="logo"
           className="inline-flex items-center lg:mx-auto"
         >
           <img src="/images/logo.png" alt="Logo" className="logo" />
         </NavLink>
         <ul className="flex items-center hidden ml-auto space-x-8 lg:flex">
-          <li>
-            <NavLink
-              to="/login"
-              aria-label="Se connecter"
-              title="Se Connecter"
-              className={({ isActive }) =>
-                isActive
-                  ? "font-medium tracking-wide text-[#D0B8AC] transition-colors duration-200"
-                  : "font-medium tracking-wide text-white transition-colors duration-200 hover:text-[#D0B8AC]"
-              }
-            >
-              Se connecter
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/register"
-              className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-              aria-label="S'enregistrer"
-              title="S'enregistrer"
-            >
-              S'enregistrer
-            </NavLink>
-          </li>
+          {!isAuthenticated ? (
+            <>
+              <li>
+                <NavLink
+                  to="/login"
+                  aria-label="Se connecter"
+                  title="Se Connecter"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "font-medium tracking-wide text-[#D0B8AC] transition-colors duration-200"
+                      : "font-medium tracking-wide text-white transition-colors duration-200 hover:text-[#D0B8AC]"
+                  }
+                >
+                  Se connecter
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/register"
+                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                  aria-label="S'enregistrer"
+                  title="S'enregistrer"
+                >
+                  S'enregistrer
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            // Avatar dropdown lorsque l'utilisateur est connecté
+            <div className="relative">
+              <img
+                id="avatarButton"
+                type="button"
+                data-dropdown-toggle="userDropdown"
+                data-dropdown-placement="bottom-start"
+                className="w-10 h-10 rounded-full cursor-pointer bg-white"
+                src="/images/avataricone.png"
+                alt="User dropdown"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              />
+              {isMenuOpen && (
+                <div
+                  id="userDropdown"
+                  className="absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700 dark:divide-gray-600"
+                >
+                  <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                    <div>John Doe</div>
+                    <div className="font-medium truncate">
+                      john.doe@example.com
+                    </div>
+                  </div>
+                  <ul
+                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="avatarButton"
+                  >
+                    <li>
+                      <NavLink
+                        to="/dashboard"
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        Dashboard
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/settings"
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        Settings
+                      </NavLink>
+                    </li>
+                  </ul>
+                  <div className="py-1">
+                    <button
+                      onClick={handleLogout}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </ul>
+
+        {/* Menu burger pour mobile */}
         <div className="ml-auto lg:hidden">
           <button
             aria-label="Open Menu"
             title="Open Menu"
             className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
-            onClick={() => setIsMenuOpen(true)}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg className="w-5 text-white" viewBox="0 0 24 24">
               <path
@@ -93,6 +165,7 @@ export const Nav = () => {
               />
             </svg>
           </button>
+
           {isMenuOpen && (
             <div className="absolute top-0 left-0 w-full">
               <div className="p-5 bg-white border rounded shadow-sm">
@@ -149,26 +222,39 @@ export const Nav = () => {
                         Contact
                       </NavLink>
                     </li>
-                    <li>
-                      <NavLink
-                        to="/signin"
-                        aria-label="Sign in"
-                        title="Sign in"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Sign in
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/register"
-                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-gray-700 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                        aria-label="S'enregistrer"
-                        title="S'enregistrer"
-                      >
-                        S'enregistrer
-                      </NavLink>
-                    </li>
+                    {!isAuthenticated ? (
+                      <>
+                        <li>
+                          <NavLink
+                            to="/login"
+                            aria-label="Se connecter"
+                            title="Se Connecter"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            Se connecter
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/register"
+                            className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-gray-700 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                            aria-label="S'enregistrer"
+                            title="S'enregistrer"
+                          >
+                            S'enregistrer
+                          </NavLink>
+                        </li>
+                      </>
+                    ) : (
+                      <li>
+                        <button
+                          onClick={handleLogout}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          Sign out
+                        </button>
+                      </li>
+                    )}
                   </ul>
                 </nav>
               </div>
