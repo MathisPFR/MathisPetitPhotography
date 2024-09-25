@@ -26,6 +26,8 @@ class PhotoController extends Controller
     // Créer une nouvelle photo (seulement pour les photographes)
     public function store(Request $request)
     {
+
+
         // Autorise seulement les partenaires et les administrateurs à ajouter des photos
         if (Auth::user()->role !== 'partner' && Auth::user()->role !== 'admin') {
             return response()->json(['error' => 'Unauthorized'], 403);
@@ -35,7 +37,7 @@ class PhotoController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation pour les fichiers images
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:30720', // Validation pour les fichiers images
             'category_ids' => 'array|nullable', // Catégories associées
         ]);
 
@@ -77,7 +79,7 @@ class PhotoController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:30720',
             'category_ids' => 'array|nullable',
         ]);
 

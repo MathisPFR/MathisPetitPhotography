@@ -48,16 +48,16 @@ export const Nav = () => {
         <ul className="flex items-center hidden ml-auto space-x-8 lg:flex">
           <li>
             <NavLink
-              to="/signin"
-              aria-label="Sign in"
-              title="Sign in"
+              to="/login"
+              aria-label="Se connecter"
+              title="Se Connecter"
               className={({ isActive }) =>
                 isActive
                   ? "font-medium tracking-wide text-[#D0B8AC] transition-colors duration-200"
                   : "font-medium tracking-wide text-white transition-colors duration-200 hover:text-[#D0B8AC]"
               }
             >
-              Sign in
+              Se connecter
             </NavLink>
           </li>
           <li>

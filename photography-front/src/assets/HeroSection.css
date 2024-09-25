@@ -1,0 +1,76 @@
+/* Background image with dark overlay */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    background-image: url('./images/PhotosDefinitive16Avr2022IMG7140.jpg'); /* Remplace par le chemin de ton image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .hero-section-login {
+    position: relative;
+    height: 100vh;
+    background-image: url('./images/PhotosDefinitive29Juin2022.jpg'); /* Remplace par le chemin de ton image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+  }
+  
+  /* Dark overlay */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Ajuste la transparence si nécessaire */
+  }
+  
+  /* Hero content */
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    text-align: center;
+    margin-top: 30%;
+  }
+  
+  /* Main title */
+  .hero-title {
+    font-size: 48px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    
+  }
+  
+  /* Bold part of the title */
+  .hero-title-bold {
+    font-weight: 700;
+    font-size: 64px;
+  }
+
+
+  .hero-transparent {
+    color: transparent; /* Le texte sera transparent */
+    -webkit-text-stroke: 1px white; 
+    font-size: 70px;
+    font-weight: 700;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 36px;
+    }
+    .hero-title-bold {
+      font-size: 48px;
+    }
+  }
+  

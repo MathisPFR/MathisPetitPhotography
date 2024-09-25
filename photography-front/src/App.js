@@ -12,6 +12,7 @@ import Portfolio from './pages/Portfolio';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound'; // pour gérer les routes non trouvées
 import { Nav } from './components/Nav';
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
+
       </Routes>
     </Router>
   );

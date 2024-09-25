@@ -19,11 +19,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 
 
+Route::get('photos', [PhotoController::class, 'index']);
+Route::get('photos/{id}', [PhotoController::class, 'show']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('photos', [PhotoController::class, 'index']);
     Route::post('photos', [PhotoController::class, 'store']);
-    Route::get('photos/{id}', [PhotoController::class, 'show']);
     Route::put('photos/{id}', [PhotoController::class, 'update']);
     Route::delete('photos/{id}', [PhotoController::class, 'destroy']);
 

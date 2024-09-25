@@ -1,12 +1,23 @@
-import React from 'react';
+import React from "react";
+import HeroSection from "../components/HeroSection";
+import "../assets/portfolio.css";
+import Photos from "../components/Photos";
+import Footer from "../components/Footer";
 
 const Portfolio = () => {
   return (
-    <div>
-      <h1>Portfolio</h1>
-      <p>Voici le portfolio des photos.</p>
+    <div className="portfolio-container">
+      <div>
+        <HeroSection />
+      </div>
+      <div>
+        <Photos />
+      </div>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
-}
+};
 
 export default Portfolio;

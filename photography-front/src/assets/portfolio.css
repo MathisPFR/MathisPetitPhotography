@@ -1,0 +1,48 @@
+.portfolio-container {
+    background-color: black;
+    color: white;
+}
+
+
+.Modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    
+    padding: 20px;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+  }
+  
+  .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+  
+  .Modal img {
+    max-width: 100%;  /* Empêche l'image de dépasser la largeur de la modal */
+    max-height: 100%; /* Empêche l'image de dépasser la hauteur de la modal */
+    object-fit: contain; /* Maintient les proportions de l'image sans déformation */
+  }
+  
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    color: white; /* Change la couleur de la croix à noir */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
