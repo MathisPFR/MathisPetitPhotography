@@ -4,6 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import HeroSection from "../components/HeroSection";
 import "../assets/account.css";
 import UpdateAccountForm from "../components/UpdateAccountForm";
+import Footer from "../components/Footer";
 
 const Account = () => {
   const [user, setUser] = useState(null);
@@ -64,6 +65,9 @@ const Account = () => {
       </div>
       <div>
         <UpdateAccountForm />
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );
