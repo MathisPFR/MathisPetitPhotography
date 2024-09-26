@@ -1,22 +1,51 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { FaRegHeart } from "react-icons/fa"; // Icône du cœur vide
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext"; // Importer le contexte
+import axios from "axios";
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, logout } = useContext(AuthContext); // Récupère l'état d'authentification et la fonction logout
-
+  const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  const fetchUserDetails = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/me`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setUser(response.data);
+      }
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération des informations utilisateur",
+        error
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
 
   // Fonction de déconnexion
   const handleLogout = () => {
-    logout(); // Déconnexion via le contexte
+    logout();
     navigate("/login");
   };
 
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-full md:px-24 lg:px-8 nav-bar">
       <div className="relative flex grid items-center grid-cols-2 lg:grid-cols-3">
+        {/* Menu principal */}
         <ul className="flex items-center hidden space-x-8 lg:flex">
           <li>
             <NavLink
@@ -47,6 +76,8 @@ export const Nav = () => {
             </NavLink>
           </li>
         </ul>
+
+        {/* Logo */}
         <NavLink
           to="/"
           aria-label="logo"
@@ -55,6 +86,7 @@ export const Nav = () => {
         >
           <img src="/images/logo.png" alt="Logo" className="logo" />
         </NavLink>
+
         <ul className="flex items-center hidden ml-auto space-x-8 lg:flex">
           {!isAuthenticated ? (
             <>
@@ -84,61 +116,79 @@ export const Nav = () => {
               </li>
             </>
           ) : (
-            // Avatar dropdown lorsque l'utilisateur est connecté
-            <div className="relative">
-              <img
-                id="avatarButton"
-                type="button"
-                data-dropdown-toggle="userDropdown"
-                data-dropdown-placement="bottom-start"
-                className="w-10 h-10 rounded-full cursor-pointer bg-white"
-                src="/images/avataricone.png"
-                alt="User dropdown"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              />
-              {isMenuOpen && (
-                <div
-                  id="userDropdown"
-                  className="absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700 dark:divide-gray-600"
+            <>
+              <li>
+                {/* Lien vers les favoris avec l'icône de cœur */}
+                <NavLink
+                  to="/favorite"
+                  aria-label="Favoris"
+                  title="Favoris"
+                  className="text-white hover:text-[#D0B8AC] transition-colors duration-200"
                 >
-                  <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                    <div>John Doe</div>
-                    <div className="font-medium truncate">
-                      john.doe@example.com
+                  <FaRegHeart className="text-xl" />
+                </NavLink>
+              </li>
+              <li className="relative">
+                <img
+                  id="avatarButton"
+                  type="button"
+                  data-dropdown-toggle="userDropdown"
+                  data-dropdown-placement="bottom-start"
+                  className="w-10 h-10 rounded-full cursor-pointer bg-white"
+                  src="/images/avataricone.png"
+                  alt="User dropdown"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                />
+                {isMenuOpen && (
+                  <div
+                    id="userDropdown"
+                    className="absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700 dark:divide-gray-600"
+                  >
+                    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                      {user ? (
+                        <>
+                          <div>{user.name}</div>
+                          <div className="font-medium truncate">
+                            {user.email}
+                          </div>
+                        </>
+                      ) : (
+                        <div>Chargement...</div>
+                      )}
+                    </div>
+                    <ul
+                      className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                      aria-labelledby="avatarButton"
+                    >
+                      <li>
+                        <NavLink
+                          to="/dashboard"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Dashboard
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="/settings"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Settings
+                        </NavLink>
+                      </li>
+                    </ul>
+                    <div className="py-1">
+                      <button
+                        onClick={handleLogout}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >
+                        Sign out
+                      </button>
                     </div>
                   </div>
-                  <ul
-                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="avatarButton"
-                  >
-                    <li>
-                      <NavLink
-                        to="/dashboard"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Dashboard
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/settings"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Settings
-                      </NavLink>
-                    </li>
-                  </ul>
-                  <div className="py-1">
-                    <button
-                      onClick={handleLogout}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >
-                      Sign out
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
+                )}
+              </li>
+            </>
           )}
         </ul>
 

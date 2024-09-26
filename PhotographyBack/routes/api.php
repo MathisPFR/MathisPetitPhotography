@@ -63,3 +63,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('liked-photos', [UserController::class, 'getLikedPhotos']);
 });
+
+Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
+    return $request->user();
+});
