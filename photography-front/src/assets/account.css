@@ -1,0 +1,17 @@
+.account-container {
+    background-color: black;
+    font-family: 'Space Grotesk', sans-serif;
+    margin: 0 auto;
+}
+
+.text-special {
+    background: linear-gradient(90deg, #FFFFFF, #6C5CCC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.container {
+    margin: 0 auto;
+    
+}
