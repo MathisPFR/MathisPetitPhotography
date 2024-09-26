@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { FaRegHeart } from "react-icons/fa"; // Icône du cœur vide
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext"; // Importer le contexte
@@ -9,6 +9,7 @@ export const Nav = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const dropdownRef = useRef(null); // Référence pour détecter les clics en dehors
 
   const fetchUserDetails = async () => {
     try {
@@ -36,10 +37,28 @@ export const Nav = () => {
     fetchUserDetails();
   }, []);
 
+  // Gestion des clics en dehors du menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    // Ajouter un écouteur d'événements global
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Nettoyer l'écouteur lorsque le composant est démonté
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   // Fonction de déconnexion
   const handleLogout = () => {
     logout();
     navigate("/login");
+    setIsMenuOpen(false); // Fermer le menu après la déconnexion
   };
 
   return (
@@ -118,7 +137,6 @@ export const Nav = () => {
           ) : (
             <>
               <li>
-                {/* Lien vers les favoris avec l'icône de cœur */}
                 <NavLink
                   to="/favorite"
                   aria-label="Favoris"
@@ -128,7 +146,7 @@ export const Nav = () => {
                   <FaRegHeart className="text-xl" />
                 </NavLink>
               </li>
-              <li className="relative">
+              <li className="relative" ref={dropdownRef}>
                 <img
                   id="avatarButton"
                   type="button"
@@ -159,6 +177,7 @@ export const Nav = () => {
                     <ul
                       className="py-2 text-sm text-gray-700 dark:text-gray-200"
                       aria-labelledby="avatarButton"
+                      onClick={() => setIsMenuOpen(false)} // Fermer le menu après un clic
                     >
                       <li>
                         <NavLink
