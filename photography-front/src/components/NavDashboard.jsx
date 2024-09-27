@@ -19,7 +19,7 @@ const NavDashboard = () => {
 
             <a
               className="flex items-center px-4 py-2 mt-5 text-gray-300 transition-colors duration-300 transform rounded-md hover:bg-gray-800 hover:text-white"
-              href="#"
+              href="/add-photo"
             >
               <span className="mx-4 font-medium">Ajouter des photos</span>
             </a>

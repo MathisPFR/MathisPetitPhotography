@@ -11,6 +11,7 @@ import Favorite from "./pages/Favorite";
 import Account from "./pages/Account";
 import ProtectedRoute from './components/ProtectedRoute'; 
 import ListingDashboard from "./pages/dashboard/ListingDashboard";
+import AddPhoto from "./pages/dashboard/AddPhoto";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,7 +41,9 @@ function LocationBasedApp({ isAuthenticated }) {
   return (
     <>
       {/* Affiche la Nav sauf sur la route /dashboard */}
-      {location.pathname !== "/dashboard" && <Nav />}
+      {!["/dashboard", "/add-photo"].includes(location.pathname) && <Nav />}
+
+      
       
       <Routes>
         <Route path="/" element={<Home />} />
@@ -56,6 +59,14 @@ function LocationBasedApp({ isAuthenticated }) {
           element={
             <ProtectedRoute allowedRoles={['partner', 'admin']}>
               <ListingDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-photo"
+          element={
+            <ProtectedRoute allowedRoles={['partner', 'admin']}>
+              <AddPhoto />
             </ProtectedRoute>
           }
         />
