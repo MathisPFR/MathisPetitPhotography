@@ -5,7 +5,11 @@ const NavDashboard = () => {
     <div>
       <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-black border-r border-gray-700">
         <a href="/">
-          <img className="w-auto h-6 sm:h-12" src="./images/logo.png" alt="" />
+          <img
+            className="w-auto h-6 sm:h-12"
+            src="./images/logo.png"
+            alt="logo"
+          />
         </a>
 
         <div className="flex flex-col justify-between flex-1 mt-6">

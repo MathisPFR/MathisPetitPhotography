@@ -1,3 +1,13 @@
 .container-dashboard {
     background-color: black;
 }
+
+.container-edit {
+    margin-top: 20%;
+}
+
+select, textarea, input {
+    appearance: none; /* Supprime les styles par défaut des navigateurs */
+    outline: none; /* Supprime le contour par défaut */
+  }
+  
