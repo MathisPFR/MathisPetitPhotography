@@ -8,6 +8,8 @@ import Faq from "../components/Faq";
 import Partners from "../components/Partners";
 import Footer from "../components/Footer";
 
+import { NavLink, useNavigate } from "react-router-dom";
+
 const Home = () => {
   return (
     <div>
@@ -22,9 +24,14 @@ const Home = () => {
             explorez mes projets, et découvrez des moments uniques capturés à
             travers mon objectif.
           </p>
-          <a href="#" class="explore-button">
+          <NavLink
+            to="/portfolio"
+            aria-label="Portfolio"
+            title="Portfolio"
+            className="explore-button"
+          >
             <span class="line"></span> Explorer le Portfolio
-          </a>
+          </NavLink>
         </div>
         <div class="about-image">
           <img src="/images/DriveAug20205717.webp" alt="Photo de Mathis" />

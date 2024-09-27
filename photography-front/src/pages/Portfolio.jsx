@@ -9,7 +9,7 @@ const Portfolio = () => {
     <div className="portfolio-container">
       <div>
         <HeroSection
-          title="Bienvenu sur"
+          title="Bienvenue sur"
           subtitle="mon Portfolio"
           backgroundImage="./images/PhotosDefinitive16Avr2022IMG7140.jpg"
         />

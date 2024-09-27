@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Favorite from "./pages/Favorite";
 import Account from "./pages/Account";
+import ProtectedRoute from './components/ProtectedRoute'; 
+import ListingDashboard from "./pages/dashboard/ListingDashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,9 +25,23 @@ function App() {
     }
   }, [isAuthenticated]);
 
+  // Déplace l'utilisation de useLocation à l'intérieur du Router
   return (
     <Router>
-      <Nav />
+      <LocationBasedApp isAuthenticated={isAuthenticated} />
+    </Router>
+  );
+}
+
+// Un sous-composant pour gérer l'affichage de la Nav
+function LocationBasedApp({ isAuthenticated }) {
+  const location = useLocation(); // Utiliser useLocation ici
+
+  return (
+    <>
+      {/* Affiche la Nav sauf sur la route /dashboard */}
+      {location.pathname !== "/dashboard" && <Nav />}
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/portfolio" element={<Portfolio />} />
@@ -35,8 +51,16 @@ function App() {
         <Route path="/favorite" element={isAuthenticated ? <Favorite /> : <Navigate to="/" />} />
         <Route path="/account" element={isAuthenticated ? <Account /> : <Navigate to="/" />} />
         <Route path="*" element={<NotFound />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute allowedRoles={['partner', 'admin']}>
+              <ListingDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </Router>
+    </>
   );
 }
 

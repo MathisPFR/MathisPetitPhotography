@@ -26,14 +26,14 @@ const Footer = () => {
         <p>Copyright © 2024, PETIT Mathis | Tous droits réservés</p>
         <div className="social-icons">
           <a
-            href="https://www.instagram.com"
+            href="https://www.instagram.com/mathisp_photo/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaInstagram className="social-icon" />
           </a>
           <a
-            href="https://www.linkedin.com"
+            href="https://www.linkedin.com/in/mathis-petit-7a6133249/"
             target="_blank"
             rel="noopener noreferrer"
           >
