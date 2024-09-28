@@ -78,10 +78,6 @@ const NavDashboard = () => {
               </NavLink>
             )}
           </nav>
-
-          <a href="#" className="flex items-center px-4 -mx-2">
-            <span className="mx-2 font-medium text-gray-300">Déconnexion</span>
-          </a>
         </div>
       </aside>
 
@@ -129,10 +125,6 @@ const NavDashboard = () => {
                 Listing des utilisateurs
               </NavLink>
             )}
-
-            <a href="#" className="text-gray-300">
-              Déconnexion
-            </a>
           </nav>
         )}
       </div>
