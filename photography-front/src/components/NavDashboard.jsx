@@ -97,6 +97,14 @@ const NavDashboard = () => {
         {isMenuOpen && (
           <nav className="flex flex-col items-start bg-black p-4 space-y-4">
             <NavLink
+              to="/"
+              className="text-gray-300"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Retour sur le site
+            </NavLink>
+
+            <NavLink
               to="/dashboard"
               className="text-gray-300"
               onClick={() => setIsMenuOpen(false)}
