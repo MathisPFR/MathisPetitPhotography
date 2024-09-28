@@ -10,4 +10,5 @@ select, textarea, input {
     appearance: none; /* Supprime les styles par défaut des navigateurs */
     outline: none; /* Supprime le contour par défaut */
   }
-  
+
+ 

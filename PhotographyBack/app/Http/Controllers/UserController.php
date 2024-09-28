@@ -43,11 +43,14 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
+            'role' => 'required|string|max:255',
         ]);
 
         // Mettre à jour les informations
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
+        $user->role = $validatedData['role'];
+
         if (!empty($validatedData['password'])) {
             $user->password = Hash::make($validatedData['password']);
         }
@@ -73,7 +76,7 @@ class UserController extends Controller
     }
 
 
-   
+
 
 
     public function getLikedPhotos()

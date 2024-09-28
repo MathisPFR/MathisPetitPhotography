@@ -13,6 +13,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ListingDashboard from "./pages/dashboard/ListingDashboard";
 import AddPhoto from "./pages/dashboard/AddPhoto";
 import EditPhoto from "./pages/dashboard/EditPhoto";
+import ListingUser from "./pages/dashboard/UserListing";
+import EditUser from "./pages/dashboard/EditUser";
+import UserListing from "./pages/dashboard/UserListing";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -42,7 +45,7 @@ function LocationBasedApp({ isAuthenticated }) {
   return (
     <>
       {/* Affiche la Nav sauf sur la route /dashboard */}
-      {!(["/dashboard", "/add-photo"].includes(location.pathname) || location.pathname.startsWith("/edit-photo")) && <Nav />}
+      {!(["/dashboard", "/add-photo", "/users-listing"].includes(location.pathname) || location.pathname.startsWith("/edit-photo") || location.pathname.startsWith("/edit-user")) && <Nav />}
 
 
       
@@ -77,6 +80,22 @@ function LocationBasedApp({ isAuthenticated }) {
           element={
             <ProtectedRoute allowedRoles={['partner', 'admin']}>
               <EditPhoto />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users-listing"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <UserListing />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-user/:id"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <EditUser />
             </ProtectedRoute>
           }
         />
