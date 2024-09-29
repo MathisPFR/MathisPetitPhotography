@@ -11,18 +11,7 @@
     max-width: 100%;
   }
 
-  .hero-section-login {
-    position: relative;
-    height: 100vh;
-    background-image: url('./images/PhotosDefinitive29Juin2022.jpg'); /* Remplace par le chemin de ton image */
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 100%;
-  }
-  
+
   /* Dark overlay */
   .hero-overlay {
     position: absolute;

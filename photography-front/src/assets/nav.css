@@ -11,3 +11,9 @@
       
 }
 
+@media (max-width: 1022px) {
+    .logo {
+        width: 100px;
+    }
+  }
+

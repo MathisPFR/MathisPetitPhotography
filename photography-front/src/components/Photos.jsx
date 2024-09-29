@@ -19,7 +19,6 @@ const Photos = ({ partnerId }) => {
     try {
       let url = `${process.env.REACT_APP_API_URL}/photos`;
 
-      // Si un partnerId est passé, on utilise la route spécifique pour récupérer les photos de ce partenaire
       if (partnerId) {
         url = `${process.env.REACT_APP_API_URL}/photos/partner/${partnerId}`;
       }
@@ -39,30 +38,7 @@ const Photos = ({ partnerId }) => {
   };
 
   useEffect(() => {
-    fetchPhotos(); // Récupérer les photos lors du montage du composant ou lorsque partnerId change
-  }, [partnerId]);
-
-  // Récupérer les photos likées pour un utilisateur connecté
-  const fetchLikedPhotos = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/liked-photos`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setLikedPhotos(response.data.map((photo) => photo.id));
-    } catch (error) {
-      console.error("Erreur lors de la récupération des photos likées:", error);
-    }
-  };
-
-  useEffect(() => {
     fetchPhotos();
-    fetchLikedPhotos(); // Récupérer les photos likées au chargement
   }, [partnerId]);
 
   // Ouvrir la modal
@@ -111,7 +87,6 @@ const Photos = ({ partnerId }) => {
     }
   };
 
-  // Gestion des états d'erreur et de chargement
   if (loading) {
     return <p>Chargement des photos...</p>;
   }
@@ -122,11 +97,14 @@ const Photos = ({ partnerId }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-10 m-10">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-10">
         {photos.map((photo, index) => (
-          <div key={index} className="grid gap-4 relative">
+          <div
+            key={index}
+            className="relative aspect-w-1 aspect-h-1 overflow-hidden rounded-lg"
+          >
             <img
-              className="h-auto max-w-full rounded-lg cursor-pointer"
+              className="w-full h-full object-cover cursor-pointer"
               src={`http://127.0.0.1:8000/storage/${photo.image_path}`}
               alt={photo.title || "Photo"}
               onClick={() => openModal(photo)}

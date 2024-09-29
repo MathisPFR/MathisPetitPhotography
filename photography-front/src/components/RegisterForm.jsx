@@ -35,7 +35,7 @@ const RegisterForm = () => {
       localStorage.setItem("token", response.data.access_token);
 
       // Rediriger vers la page d'accueil après l'inscription réussie
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       setError(
         "Erreur lors de l'inscription, veuillez vérifier vos informations."

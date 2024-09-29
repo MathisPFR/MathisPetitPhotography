@@ -5,7 +5,8 @@ import { AuthContext } from "../AuthContext"; // Importer le contexte
 import axios from "axios";
 
 export const Nav = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAvatarMenuOpen, setIsAvatarMenuOpen] = useState(false);
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false); // Pour gérer le menu burger
   const { isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -37,28 +38,26 @@ export const Nav = () => {
     fetchUserDetails();
   }, []);
 
-  // Gestion des clics en dehors du menu
+  // Gestion des clics en dehors du menu avatar
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
+        setIsAvatarMenuOpen(false);
       }
     };
 
-    // Ajouter un écouteur d'événements global
     document.addEventListener("mousedown", handleClickOutside);
 
-    // Nettoyer l'écouteur lorsque le composant est démonté
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownRef]);
+  }, []);
 
   // Fonction de déconnexion
   const handleLogout = () => {
     logout();
     navigate("/login");
-    setIsMenuOpen(false); // Fermer le menu après la déconnexion
+    setIsAvatarMenuOpen(false); // Fermer le menu après la déconnexion
   };
 
   return (
@@ -155,9 +154,9 @@ export const Nav = () => {
                   className="w-10 h-10 rounded-full cursor-pointer bg-white"
                   src="/images/avataricone.png"
                   alt="User dropdown"
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  onClick={() => setIsAvatarMenuOpen(!isAvatarMenuOpen)}
                 />
-                {isMenuOpen && (
+                {isAvatarMenuOpen && (
                   <div
                     id="userDropdown"
                     className="absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 dark:bg-gray-700 dark:divide-gray-600"
@@ -177,16 +176,22 @@ export const Nav = () => {
                     <ul
                       className="py-2 text-sm text-gray-700 dark:text-gray-200"
                       aria-labelledby="avatarButton"
-                      onClick={() => setIsMenuOpen(false)} // Fermer le menu après un clic
+                      onClick={() => setIsAvatarMenuOpen(false)} // Fermer le menu après un clic
                     >
-                      <li>
-                        <NavLink
-                          to="/dashboard"
-                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                        >
-                          Dashboard
-                        </NavLink>
-                      </li>
+                      {/* Afficher le dashboard uniquement pour les rôles qui ne sont pas "user" */}
+                      {user && user.role !== "user" && (
+                        <li>
+                          <NavLink
+                            to="/dashboard"
+                            aria-label="dashboard"
+                            title="dashboard"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Dashboard
+                          </NavLink>
+                        </li>
+                      )}
+
                       <li>
                         <NavLink
                           to="/account"
@@ -217,7 +222,7 @@ export const Nav = () => {
             aria-label="Open Menu"
             title="Open Menu"
             className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => setIsBurgerMenuOpen(!isBurgerMenuOpen)}
           >
             <svg className="w-5 text-white" viewBox="0 0 24 24">
               <path
@@ -235,7 +240,7 @@ export const Nav = () => {
             </svg>
           </button>
 
-          {isMenuOpen && (
+          {isBurgerMenuOpen && (
             <div className="absolute top-0 left-0 w-full">
               <div className="p-5 bg-white border rounded shadow-sm">
                 <div className="flex items-center justify-between mb-4">
@@ -258,7 +263,7 @@ export const Nav = () => {
                       aria-label="Close Menu"
                       title="Close Menu"
                       className="p-2 -mt-2 -mr-2 transition duration-200 rounded hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => setIsBurgerMenuOpen(false)}
                     >
                       <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
                         <path
@@ -315,14 +320,42 @@ export const Nav = () => {
                         </li>
                       </>
                     ) : (
-                      <li>
-                        <button
-                          onClick={handleLogout}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                        >
-                          Sign out
-                        </button>
-                      </li>
+                      <>
+                        {/* Vous pouvez ajouter du contenu ici avant le bouton de déconnexion */}
+
+                        <li>
+                          <NavLink
+                            to="/account"
+                            aria-label="Mon compte"
+                            title="Mon compte"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            Mon compte
+                          </NavLink>
+                        </li>
+                        {/* Afficher le dashboard uniquement pour les rôles qui ne sont pas "user" */}
+                        {user && user.role !== "user" && (
+                          <li>
+                            <NavLink
+                              to="/dashboard"
+                              aria-label="dashboard"
+                              title="dashboard"
+                              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            >
+                              Dashboard
+                            </NavLink>
+                          </li>
+                        )}
+
+                        <li>
+                          <button
+                            onClick={handleLogout}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          >
+                            Sign out
+                          </button>
+                        </li>
+                      </>
                     )}
                   </ul>
                 </nav>
