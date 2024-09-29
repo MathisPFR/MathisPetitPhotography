@@ -3,10 +3,10 @@ import axios from "axios";
 import Modal from "react-modal";
 import { FaHeart } from "react-icons/fa";
 
-// Initialiser react-modal pour rendre l'accessibilité
+// Initialiser react-modal pour l'accessibilité
 Modal.setAppElement("#root");
 
-const Photos = () => {
+const Photos = ({ partnerId }) => {
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,12 +14,22 @@ const Photos = () => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [likedPhotos, setLikedPhotos] = useState([]);
 
-  // Fonction pour récupérer les photos depuis l'API
+  // Fonction pour récupérer les photos avec filtrage par partnerId si disponible
   const fetchPhotos = async () => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/photos`
-      );
+      let url = `${process.env.REACT_APP_API_URL}/photos`;
+
+      // Si un partnerId est passé, on utilise la route spécifique pour récupérer les photos de ce partenaire
+      if (partnerId) {
+        url = `${process.env.REACT_APP_API_URL}/photos/partner/${partnerId}`;
+      }
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
       setPhotos(response.data);
       setLoading(false);
     } catch (err) {
@@ -27,6 +37,10 @@ const Photos = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchPhotos(); // Récupérer les photos lors du montage du composant ou lorsque partnerId change
+  }, [partnerId]);
 
   // Récupérer les photos likées pour un utilisateur connecté
   const fetchLikedPhotos = async () => {
@@ -40,7 +54,7 @@ const Photos = () => {
           },
         }
       );
-      setLikedPhotos(response.data.map((photo) => photo.id)); // Récupère les ID des photos likées
+      setLikedPhotos(response.data.map((photo) => photo.id));
     } catch (error) {
       console.error("Erreur lors de la récupération des photos likées:", error);
     }
@@ -49,7 +63,7 @@ const Photos = () => {
   useEffect(() => {
     fetchPhotos();
     fetchLikedPhotos(); // Récupérer les photos likées au chargement
-  }, []);
+  }, [partnerId]);
 
   // Ouvrir la modal
   const openModal = (photo) => {
@@ -70,7 +84,6 @@ const Photos = () => {
 
     try {
       if (isLiked) {
-        // Utiliser un POST pour unliker si c'est ainsi que l'API est configurée
         await axios.post(
           `${process.env.REACT_APP_API_URL}/photos/${photo.id}/unlike`,
           {},

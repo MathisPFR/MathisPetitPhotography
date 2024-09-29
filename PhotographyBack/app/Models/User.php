@@ -70,12 +70,14 @@ class User extends Authenticatable
         return $this->hasMany(Photo::class);
     }
 
+    public function partner()
+    {
+        return $this->hasOne(Partner::class);
+    }
+
     // Relation : un utilisateur peut liker plusieurs photos
     public function likedPhotos()
     {
         return $this->belongsToMany(Photo::class, 'user_photo_likes')->withTimestamps();
     }
-
-
-    
 }

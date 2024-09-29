@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Photo;
+use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -10,9 +11,38 @@ use Illuminate\Support\Facades\Storage;
 class PhotoController extends Controller
 {
     // Lister toutes les photos
-    public function index()
+    public function index(Request $request)
     {
-        $photos = Photo::with('user', 'categories')->get();
+        // Récupérer le partner_id depuis la requête, s'il est passé
+        $partnerId = $request->query('partner_id');
+
+        // Si un partner_id est passé, on filtre les photos par l'ID du partenaire (user_id)
+        if ($partnerId) {
+            $photos = Photo::with('user', 'categories')
+                ->where('user_id', $partnerId)
+                ->get();
+        } else {
+            // Sinon, on récupère toutes les photos
+            $photos = Photo::with('user', 'categories')->get();
+        }
+
+        return response()->json($photos);
+    }
+
+
+    public function getPhotosByPartner($partnerId)
+    {
+        // Trouver le partenaire par son ID
+        $partner = Partner::find($partnerId);
+
+        // Vérifier si le partenaire existe
+        if (!$partner) {
+            return response()->json(['message' => 'Partner not found'], 404);
+        }
+
+        // Utiliser le user_id du partenaire pour trouver les photos associées
+        $photos = Photo::where('user_id', $partner->user_id)->get();
+
         return response()->json($photos);
     }
 

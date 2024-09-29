@@ -21,6 +21,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 Route::get('photos', [PhotoController::class, 'index']);
 Route::get('photos/{id}', [PhotoController::class, 'show']);
+Route::get('photos/partner/{partnerId}', [PhotoController::class, 'getPhotosByPartner']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('photos', [PhotoController::class, 'store']);

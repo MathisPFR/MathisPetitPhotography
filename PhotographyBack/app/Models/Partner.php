@@ -16,4 +16,9 @@ class Partner extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function photos()
+    {
+        return $this->hasManyThrough(Photo::class, User::class, 'id', 'user_id');
+    }
 }
