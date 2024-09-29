@@ -43,3 +43,24 @@
     width: 60%;
   }
  
+
+
+
+
+  @media (max-width: 1024px) {
+    .swiper-slide {
+      width: 80%; /* Ajustement pour tablettes */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .swiper-slide {
+      width: 90%; /* Ajustement pour petits écrans */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .swiper-slide {
+      width: 100%; /* Pleine largeur pour mobiles */
+    }
+  }

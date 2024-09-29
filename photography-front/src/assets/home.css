@@ -223,3 +223,220 @@
 
  
 
+
+
+
+
+
+
+  @media (max-width: 1024px) {
+    .about-section {
+      flex-direction: column;
+      padding: 50px;
+      text-align: center;
+    }
+  
+    .about-text {
+      max-width: 80%;
+      margin-bottom: 40px;
+    }
+  
+    .title {
+      font-size: 2.5em;
+    }
+  
+    .description {
+      font-size: 1.2em;
+    }
+  }
+  
+  /* Pour les petits écrans (mobiles) */
+  @media (max-width: 768px) {
+    .about-section {
+      flex-direction: column;
+      padding: 30px;
+    }
+  
+    .about-text {
+      max-width: 100%;
+      margin-bottom: 30px;
+    }
+  
+    .title {
+      font-size: 2em;
+    }
+  
+    .description {
+      font-size: 1.1em;
+    }
+  }
+  
+  /* Pour les très petits écrans */
+  @media (max-width: 480px) {
+    .about-section {
+      padding: 20px;
+    }
+  
+    .title {
+      font-size: 1.8em;
+    }
+  
+    .description {
+      font-size: 1em;
+    }
+  
+    .about-image img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+
+
+
+
+
+
+  @media (max-width: 1024px) {
+    .specialties-section {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .specialties-content {
+      padding: 20px;
+      margin-top: 0;
+    }
+  
+    .specialty-image {
+      height: 300px;
+      background-size: cover;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .specialties-section {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .specialties-content {
+      padding: 15px;
+    }
+  
+    .specialty-image {
+      height: 200px;
+    }
+  
+    .specialty-item h3 {
+      font-size: 20px;
+    }
+  
+    .specialty-item p {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .specialty-item h3 {
+      font-size: 18px;
+    }
+  
+    .specialty-item p {
+      font-size: 12px;
+    }
+  
+    .specialty-image {
+      height: 150px;
+    }
+  }
+
+
+
+
+
+  @media (max-width: 1024px) {
+    .portrait-section {
+      padding: 100px 50px;
+    }
+    .portrait-title {
+      font-size: 30px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .portrait-section {
+      padding: 80px 30px;
+    }
+    .portrait-title {
+      font-size: 26px;
+    }
+    .portrait-subtitle {
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .portrait-section {
+      padding: 60px 20px;
+    }
+    .portrait-title {
+      font-size: 22px;
+    }
+    .portrait-subtitle {
+      font-size: 10px;
+    }
+  }
+
+
+
+
+
+
+
+
+  @media (max-width: 768px) {
+    .faq-bloc {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .faq-left-container {
+      margin-left: 0;
+      width: 100%; /* Prend toute la largeur */
+    }
+  
+    .faq-right-block {
+      max-width: 100%; /* Prend toute la largeur */
+      height: auto;
+      padding: 10px;
+    }
+    
+    .vertical-text {
+      font-size: 20px; /* Réduction de la taille du texte */
+    }
+  }
+  
+  /* Pour les petits écrans */
+  @media (max-width: 480px) {
+    .faq-bloc {
+      padding: 10px;
+      gap: 10px;
+      flex-direction: column-reverse
+    }
+  
+    .faq-left-container {
+      padding: 0;
+    }
+  
+    .faq-right-block {
+      padding: 10px;
+      max-width: 100%;
+    }
+  
+    .vertical-text {
+      font-size: 18px; /* Encore plus petit pour les petits écrans */
+      letter-spacing: 1px;
+      writing-mode: initial; /* Rend le texte vertical */
+    }
+  }

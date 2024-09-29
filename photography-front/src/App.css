@@ -85,6 +85,11 @@
     width: 40%;
     text-align: left;
   }
+
+
+  
+
+ 
   
  
   
@@ -147,6 +152,50 @@ p {
 
   
   
+  @media (max-width: 930px) {
+    .outlined-text {
+      font-size: 2em;
+    }
+
+    .title-slide {
+      font-size: 2.5em;
+    }
+
+    .title-overlay {
+      bottom: 25%;
+    }
+
+    .author {
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .outlined-text {
+      font-size: 1em;
+    }
+
+    .title-slide {
+      font-size: 1.5em;
+    }
+
+    .title-overlay {
+      bottom: 10%;
+    }
+
+    .author {
+      font-size: 8px;
+    }
+  }
   
+
+  @media (max-width: 400px) {
+   
+
+    .author {
+      display: none;
+    }
+  }
+
   
 

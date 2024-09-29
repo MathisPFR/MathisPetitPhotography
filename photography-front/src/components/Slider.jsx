@@ -28,7 +28,7 @@ export default function App() {
                 <div class="author">
                   <span class="author-line"></span> MATHIS PETIT
                 </div>
-                <h1>Capturer</h1>
+                <h1 className="title-slide">Capturer</h1>
                 <h2 class="outlined-text">l'éphémère</h2>
               </div>
             </div>
