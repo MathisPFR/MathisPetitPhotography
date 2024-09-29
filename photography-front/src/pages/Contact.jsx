@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import HeroSection from "../components/HeroSection";
 import Footer from "../components/Footer";
 import "../assets/contact.css";
-
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Contact = () => {
@@ -36,11 +35,11 @@ const Contact = () => {
       </div>
       <div className="mb-40 bg-black">
         <div className="min-h-screen flex flex-col bg-black text-white">
-          <div className="mb-10 ml-20 mt-20">
-            <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-[#763AF5]">
+          <div className="mb-10 mx-6 lg:ml-20 mt-20">
+            <h1 className="text-4xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-[#763AF5]">
               Entrons en Contact
             </h1>
-            <p className="text-gray-400 mt-2 max-w-xl text-xl">
+            <p className="text-gray-400 mt-2 max-w-xl text-lg lg:text-xl">
               Que vous ayez une question, une idée de projet, ou simplement
               envie de discuter de photographie, je suis à votre écoute.
               Remplissez le formulaire ci-dessous, et je vous répondrai dès que
@@ -48,10 +47,10 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 p-8 bg-gray-900 rounded-lg shadow-lg grid-contact mr-20 ml-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 p-6 lg:p-8 bg-gray-900 rounded-lg shadow-lg mx-6 lg:mx-20">
             {/* Formulaire */}
             <div>
-              <h2 className="text-2xl font-bold mb-4">
+              <h2 className="text-xl lg:text-2xl font-bold mb-4">
                 Parlez-moi de votre projet
               </h2>
               <p className="text-gray-400 mb-6">
@@ -59,7 +58,7 @@ const Contact = () => {
                 comprendre vos besoins et vous répondre rapidement.
               </p>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input
                     type="text"
                     name="lastName"
@@ -135,7 +134,7 @@ const Contact = () => {
             </div>
 
             {/* Image + Citation */}
-            <div className="relative image-cit bg-cover bg-center h-4/5 wh-4/5 flex items-center justify-start rounded-lg">
+            <div className="relative image-cit bg-cover bg-center h-64 lg:h-full flex items-center justify-start rounded-lg">
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-75 z-0 rounded-lg	"></div>
 
