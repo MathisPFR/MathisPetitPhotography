@@ -61,7 +61,7 @@ const FormAddPhoto = () => {
   };
 
   return (
-    <div className="max-w-sm mx-auto p-10">
+    <div className="max-w-md mx-auto p-6 bg-[#111827] text-white rounded-lg shadow-md">
       <h2 className="text-center text-2xl font-bold mb-5 text-white">
         Ajouter une Photo
       </h2>

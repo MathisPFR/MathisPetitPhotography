@@ -36,7 +36,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="max-w-sm mx-auto">
+    <div className="mt-20 max-w-sm mx-auto max-w-md mx-auto p-6 bg-[#111827] text-white rounded-lg shadow-md">
       <h2 className="text-center text-2xl font-bold mb-5 text-white">
         Connexion
       </h2>

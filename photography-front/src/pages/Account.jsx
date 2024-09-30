@@ -6,6 +6,7 @@ import "../assets/account.css";
 import UpdateAccountForm from "../components/UpdateAccountForm";
 import Footer from "../components/Footer";
 
+
 const Account = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);

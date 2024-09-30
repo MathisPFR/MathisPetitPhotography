@@ -64,7 +64,7 @@ const EditUserForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-gray-800 text-white rounded-lg shadow-md">
+    <div className="max-w-md mx-auto p-6 bg-[#111827] text-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6">Modifier l'utilisateur</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <form onSubmit={handleSubmit}>

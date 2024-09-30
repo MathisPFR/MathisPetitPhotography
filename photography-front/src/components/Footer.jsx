@@ -30,14 +30,14 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaInstagram className="social-icon" />
+            <FaInstagram className="social-icon text-4xl" />
           </a>
           <a
             href="https://www.linkedin.com/in/mathis-petit-7a6133249/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaLinkedin className="social-icon" />
+            <FaLinkedin className="social-icon text-4xl" />
           </a>
         </div>
       </div>

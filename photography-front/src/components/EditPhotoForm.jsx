@@ -93,7 +93,7 @@ const EditPhotoForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-gray-800 text-white rounded-lg shadow-md">
+    <div className="max-w-md mx-auto p-6 bg-[#111827] text-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6">Modifier la photo</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
