@@ -56,10 +56,10 @@
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .hero-title {
-      font-size: 36px;
+      font-size: 30px;
     }
     .hero-title-bold {
-      font-size: 48px;
+      font-size: 40px;
     }
   }
   

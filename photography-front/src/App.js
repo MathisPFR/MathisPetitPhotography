@@ -16,6 +16,8 @@ import EditPhoto from "./pages/dashboard/EditPhoto";
 import ListingUser from "./pages/dashboard/UserListing";
 import EditUser from "./pages/dashboard/EditUser";
 import UserListing from "./pages/dashboard/UserListing";
+import MentionsLegales from "./pages/MentionsLegales";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -56,6 +58,8 @@ function LocationBasedApp({ isAuthenticated }) {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/mentions-legales" element={<MentionsLegales />} />
+        <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
         <Route path="/favorite" element={isAuthenticated ? <Favorite /> : <Navigate to="/" />} />
         <Route path="/account" element={isAuthenticated ? <Account /> : <Navigate to="/" />} />
         <Route path="*" element={<NotFound />} />

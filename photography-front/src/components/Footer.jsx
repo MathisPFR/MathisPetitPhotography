@@ -1,6 +1,7 @@
 import React from "react";
 import "../assets/footer.css";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -22,7 +23,20 @@ const Footer = () => {
         </a>
       </div>
       <div className="footer">
-        <p>PETIT Mathis | Clermont-Ferrand - 63800</p>
+        <p>
+          <NavLink
+            to="/politique-de-confidentialite"
+            className="block px-4 py-2  "
+          >
+            Politique de confidentialité
+          </NavLink>
+        </p>
+        <p>
+          <NavLink to="/mentions-legales" className="block px-4 py-2  ">
+            Mentions légales
+          </NavLink>
+        </p>
+
         <p>Copyright © 2024, PETIT Mathis | Tous droits réservés</p>
         <div className="social-icons">
           <a

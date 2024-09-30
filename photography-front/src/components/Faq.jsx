@@ -35,6 +35,17 @@ const Faq = () => {
           <p>Cliquez simplement sur le cœur en bas de la photo.</p>
         </AccordionItemPanel>
       </AccordionItem>
+
+      <AccordionItem>
+        <AccordionItemHeading>
+          <AccordionItemButton>
+          Comment puis-je devenir photographe partenaire sur le site ?
+          </AccordionItemButton>
+        </AccordionItemHeading>
+        <AccordionItemPanel>
+          <p>Vous pouvez vous inscrire en tant que partenaire lors de votre inscription, ou mettre à jour votre rôle depuis votre compte en choisissant "Photographe".</p>
+        </AccordionItemPanel>
+      </AccordionItem>
     </Accordion>
   );
 };
