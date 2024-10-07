@@ -16,20 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'role' => 'admin'
-        ]);
-
-        Category::factory()->count(5)->create();
-
-        // Crée 10 utilisateurs avec 3 photos chacun
-        User::factory()->has(Photo::factory()->count(3))->count(10)->create();
-
-        // Crée 5 utilisateurs en tant que photographes partenaires
-        Partner::factory()->count(5)->create();
+        $this->call(UserSeeder::class);        // Seeder pour les utilisateurs
+        $this->call(CategorySeeder::class);    // Seeder pour les catégories
+        $this->call(PartnerSeeder::class);     // Seeder pour les partenaires
+        $this->call(PhotoSeeder::class);       // Seeder pour les photos
     }
 }

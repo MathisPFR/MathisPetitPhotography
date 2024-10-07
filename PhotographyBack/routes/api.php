@@ -22,6 +22,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::get('photos', [PhotoController::class, 'index']);
 Route::get('photos/{id}', [PhotoController::class, 'show']);
 Route::get('photos/partner/{partnerId}', [PhotoController::class, 'getPhotosByPartner']);
+Route::get('partners', [PartnerController::class, 'index']);
+Route::get('partners/{id}', [PartnerController::class, 'show']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('photos', [PhotoController::class, 'store']);
@@ -45,8 +47,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('partners', [PartnerController::class, 'index']);
-    Route::get('partners/{id}', [PartnerController::class, 'show']);
     Route::put('partners/{id}', [PartnerController::class, 'update']);
 });
 
