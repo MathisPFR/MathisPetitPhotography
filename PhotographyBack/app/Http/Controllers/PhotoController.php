@@ -315,4 +315,43 @@ class PhotoController extends Controller
 
         return response()->json(['message' => 'Like retiré avec succès']);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/photos/partner/{partnerId}",
+     *     tags={"Photos"},
+     *     summary="Obtenir les photos d'un partenaire spécifique",
+     *     @OA\Parameter(
+     *         name="partnerId",
+     *         in="path",
+     *         required=true,
+     *         description="ID du partenaire",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Photos du partenaire",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Photo")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Partenaire non trouvé"
+     *     )
+     * )
+     */
+    public function getPhotosByPartner($partnerId)
+    {
+        $partner = Partner::find($partnerId);
+
+        if (!$partner) {
+            return response()->json(['message' => 'Partner not found'], 404);
+        }
+
+        $photos = Photo::where('user_id', $partner->user_id)->get();
+
+        return response()->json($photos);
+    }
 }

@@ -825,6 +825,44 @@
                 ]
             }
         },
+        "/api/photos/partner/{partnerId}": {
+            "get": {
+                "tags": [
+                    "Photos"
+                ],
+                "summary": "Obtenir les photos d'un partenaire spécifique",
+                "operationId": "1d9617908df453ce09835b5ab38400a7",
+                "parameters": [
+                    {
+                        "name": "partnerId",
+                        "in": "path",
+                        "description": "ID du partenaire",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Photos du partenaire",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Photo"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Partenaire non trouvé"
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
