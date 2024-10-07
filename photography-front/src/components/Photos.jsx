@@ -3,7 +3,6 @@ import axios from "axios";
 import Modal from "react-modal";
 import { FaHeart } from "react-icons/fa";
 
-
 Modal.setAppElement("#root");
 
 const Photos = ({ partnerId }) => {
@@ -12,9 +11,9 @@ const Photos = ({ partnerId }) => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [likedPhotos, setLikedPhotos] = useState([]);
+  const [likedPhotos, setLikedPhotos] = useState([]); // Liste des photos likées
 
-  
+  // Fonction pour récupérer les photos
   const fetchPhotos = async () => {
     try {
       let url = `${process.env.REACT_APP_API_URL}/photos`;
@@ -37,8 +36,27 @@ const Photos = ({ partnerId }) => {
     }
   };
 
+  // Fonction pour récupérer les photos likées par l'utilisateur
+  const fetchLikedPhotos = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/liked-photos`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const likedPhotoIds = response.data.map((photo) => photo.id);
+      setLikedPhotos(likedPhotoIds);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des photos likées:", error);
+    }
+  };
+
   useEffect(() => {
     fetchPhotos();
+    fetchLikedPhotos(); // Récupère les photos likées lors du montage
   }, [partnerId]);
 
   // Ouvrir la modal
