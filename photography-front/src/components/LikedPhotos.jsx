@@ -7,14 +7,13 @@ const LikedPhotos = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fonction pour récupérer les photos likées de l'utilisateur
   const fetchLikedPhotos = async () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/liked-photos`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Envoie du token pour l'authentification
+            Authorization: `Bearer ${localStorage.getItem("token")}`, 
           },
         }
       );
@@ -30,7 +29,7 @@ const LikedPhotos = () => {
     fetchLikedPhotos();
   }, []);
 
-  // Gestion des états d'erreur et de chargement
+  
   if (loading) {
     return <p>Chargement des photos...</p>;
   }
@@ -48,7 +47,7 @@ const LikedPhotos = () => {
         >
           <img
             className="w-full h-full object-cover cursor-pointer"
-            src={`http://127.0.0.1:8000/storage/${photo.image_path}`} // Lien dynamique pour les images
+            src={`http://127.0.0.1:8000/storage/${photo.image_path}`} 
             alt={photo.title || "Photo likée"}
           />
           <FaHeart

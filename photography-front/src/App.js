@@ -46,7 +46,7 @@ function LocationBasedApp({ isAuthenticated }) {
 
   return (
     <>
-      {/* Affiche la Nav sauf sur la route /dashboard */}
+      
       {!(["/dashboard", "/add-photo", "/users-listing"].includes(location.pathname) || location.pathname.startsWith("/edit-photo") || location.pathname.startsWith("/edit-user")) && <Nav />}
 
 

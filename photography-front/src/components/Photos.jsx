@@ -3,7 +3,7 @@ import axios from "axios";
 import Modal from "react-modal";
 import { FaHeart } from "react-icons/fa";
 
-// Initialiser react-modal pour l'accessibilité
+
 Modal.setAppElement("#root");
 
 const Photos = ({ partnerId }) => {
@@ -14,7 +14,7 @@ const Photos = ({ partnerId }) => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [likedPhotos, setLikedPhotos] = useState([]);
 
-  // Fonction pour récupérer les photos avec filtrage par partnerId si disponible
+  
   const fetchPhotos = async () => {
     try {
       let url = `${process.env.REACT_APP_API_URL}/photos`;

@@ -45,18 +45,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('partners', [PartnerController::class, 'index']); // Lister tous les partenaires
-    Route::get('partners/{id}', [PartnerController::class, 'show']); // Voir les informations d'un partenaire
-    Route::put('partners/{id}', [PartnerController::class, 'update']); // Mettre à jour les informations du partenaire
+    Route::get('partners', [PartnerController::class, 'index']); 
+    Route::get('partners/{id}', [PartnerController::class, 'show']); 
+    Route::put('partners/{id}', [PartnerController::class, 'update']); 
 });
 
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('users', [UserController::class, 'index']); // Lister tous les utilisateurs (admin)
-    Route::get('users/{id}', [UserController::class, 'show']); // Afficher un utilisateur spécifique
-    Route::put('users/{id}', [UserController::class, 'update']); // Mettre à jour un utilisateur
-    Route::delete('users/{id}', [UserController::class, 'destroy']); // Supprimer un utilisateur (admin)
+    Route::get('users', [UserController::class, 'index']); 
+    Route::get('users/{id}', [UserController::class, 'show']); 
+    Route::put('users/{id}', [UserController::class, 'update']); 
+    Route::delete('users/{id}', [UserController::class, 'destroy']); 
 });
 
 

@@ -53,39 +53,39 @@ class PhotoController extends Controller
         return response()->json($photo);
     }
 
-    // Créer une nouvelle photo (seulement pour les photographes)
+
     public function store(Request $request)
     {
 
 
-        // Autorise seulement les partenaires et les administrateurs à ajouter des photos
+
         if (Auth::user()->role !== 'partner' && Auth::user()->role !== 'admin') {
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        // Valider les données du formulaire, y compris le fichier image
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:30720', // Validation pour les fichiers images
-            'category_ids' => 'array|nullable', // Catégories associées
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:30720',
+            'category_ids' => 'array|nullable',
         ]);
 
-        // Gestion de l'upload de l'image
+
         if ($request->hasFile('image')) {
-            // Stocker l'image dans le répertoire 'public/photos'
+
             $imagePath = $request->file('image')->store('photos', 'public');
         }
 
-        // Créer une nouvelle photo dans la base de données
+
         $photo = Photo::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
-            'image_path' => $imagePath, // Enregistre le chemin de l'image
+            'image_path' => $imagePath,
             'user_id' => Auth::id(),
         ]);
 
-        // Associe les catégories si elles sont fournies
+
         if (isset($validatedData['category_ids'])) {
             $photo->categories()->sync($validatedData['category_ids']);
         }

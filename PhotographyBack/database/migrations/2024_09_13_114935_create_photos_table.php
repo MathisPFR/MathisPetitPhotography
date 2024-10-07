@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Lien avec l'utilisateur
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('image_path'); // Chemin de l'image
-            $table->unsignedInteger('likes')->default(0); // Nombre de likes
+            $table->string('image_path'); 
+            $table->unsignedInteger('likes')->default(0); 
             $table->timestamps();
         });
         
