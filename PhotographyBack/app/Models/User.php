@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,20 +9,61 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-
+/**
+ * @OA\Schema(
+ *     schema="User",
+ *     type="object",
+ *     title="User",
+ *     description="Modèle représentant un utilisateur dans l'application",
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         description="ID unique de l'utilisateur"
+ *     ),
+ *     @OA\Property(
+ *         property="name",
+ *         type="string",
+ *         description="Nom de l'utilisateur"
+ *     ),
+ *     @OA\Property(
+ *         property="email",
+ *         type="string",
+ *         format="email",
+ *         description="Adresse email de l'utilisateur"
+ *     ),
+ *     @OA\Property(
+ *         property="role",
+ *         type="string",
+ *         description="Rôle de l'utilisateur (user, partner, admin)"
+ *     ),
+ *     @OA\Property(
+ *         property="profile_photo_url",
+ *         type="string",
+ *         description="URL de la photo de profil de l'utilisateur"
+ *     ),
+ *     @OA\Property(
+ *         property="photos",
+ *         type="array",
+ *         @OA\Items(ref="#/components/schemas/Photo"),
+ *         description="Liste des photos associées à cet utilisateur"
+ *     ),
+ *     @OA\Property(
+ *         property="partner",
+ *         ref="#/components/schemas/Partner",
+ *         description="Partenaire associé à cet utilisateur, si l'utilisateur est un photographe"
+ *     ),
+ *     @OA\Property(
+ *         property="likedPhotos",
+ *         type="array",
+ *         @OA\Items(ref="#/components/schemas/Photo"),
+ *         description="Liste des photos likées par l'utilisateur"
+ *     )
+ * )
+ */
 class User extends Authenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, HasProfilePhoto, Notifiable, TwoFactorAuthenticatable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -31,11 +71,6 @@ class User extends Authenticatable
         'role',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -43,20 +78,10 @@ class User extends Authenticatable
         'two_factor_secret',
     ];
 
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
     protected $appends = [
         'profile_photo_url',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -75,7 +100,6 @@ class User extends Authenticatable
         return $this->hasOne(Partner::class);
     }
 
-    // Relation : un utilisateur peut liker plusieurs photos
     public function likedPhotos()
     {
         return $this->belongsToMany(Photo::class, 'user_photo_likes')->withTimestamps();
