@@ -35,8 +35,10 @@ export const Nav = () => {
   };
 
   useEffect(() => {
-    fetchUserDetails();
-  }, []);
+    if (isAuthenticated) {
+      fetchUserDetails();
+    }
+  }, [isAuthenticated]);
 
   // Gestion des clics en dehors du menu avatar
   useEffect(() => {
