@@ -15,7 +15,7 @@ const EditPhotoForm = () => {
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/categories`,
+        `${process.env.REACT_APP_API_URL}/api/categories`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -32,7 +32,7 @@ const EditPhotoForm = () => {
   const fetchPhotoDetails = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/photos/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/photos/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -71,7 +71,7 @@ const EditPhotoForm = () => {
     try {
       await axios({
         method: "post",
-        url: `${process.env.REACT_APP_API_URL}/photos/${id}?_method=PUT`,
+        url: `${process.env.REACT_APP_API_URL}/api/photos/${id}?_method=PUT`,
         data: formData,
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

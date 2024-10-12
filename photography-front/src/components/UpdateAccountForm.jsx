@@ -17,7 +17,7 @@ const UpdateAccountForm = () => {
   const fetchUserDetails = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/me`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,7 +47,7 @@ const UpdateAccountForm = () => {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        `${process.env.REACT_APP_API_URL}/users/${Id}`,
+        `${process.env.REACT_APP_API_URL}/api/users/${Id}`,
         {
           name,
           email,

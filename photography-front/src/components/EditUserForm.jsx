@@ -14,7 +14,7 @@ const EditUserForm = () => {
   const fetchUserDetails = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/users/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/users/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -47,7 +47,7 @@ const EditUserForm = () => {
 
       // Requête PUT pour mettre à jour l'utilisateur
       await axios.put(
-        `${process.env.REACT_APP_API_URL}/users/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/users/${id}`,
         updatedUser,
         {
           headers: {

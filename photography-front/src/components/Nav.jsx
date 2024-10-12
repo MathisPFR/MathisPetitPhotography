@@ -17,7 +17,7 @@ export const Nav = () => {
       const token = localStorage.getItem("token");
       if (token) {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/me`,
+          `${process.env.REACT_APP_API_URL}/api/me`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

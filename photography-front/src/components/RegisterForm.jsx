@@ -21,7 +21,7 @@ const RegisterForm = () => {
     try {
       // Envoi de la requête d'inscription
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/register`,
+        `${process.env.REACT_APP_API_URL}/api/register`,
         {
           name,
           email,

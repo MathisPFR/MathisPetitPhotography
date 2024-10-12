@@ -15,7 +15,7 @@ const FormAddPhoto = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/categories`,
+          `${process.env.REACT_APP_API_URL}/api/categories`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -46,7 +46,7 @@ const FormAddPhoto = () => {
     formData.append("image", image); // Envoyer l'image
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/photos`, formData, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/photos`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",

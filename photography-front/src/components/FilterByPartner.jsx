@@ -8,7 +8,7 @@ const FilterByPartner = ({ onPartnerSelect }) => {
   const fetchPartners = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/partners`,
+        `${process.env.REACT_APP_API_URL}/api/partners`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

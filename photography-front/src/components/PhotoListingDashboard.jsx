@@ -11,7 +11,7 @@ const PhotoListingDashboard = () => {
   const fetchUserDetails = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/me`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -29,7 +29,7 @@ const PhotoListingDashboard = () => {
   const fetchPhotos = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/photos`,
+        `${process.env.REACT_APP_API_URL}/api/photos`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -67,7 +67,7 @@ const PhotoListingDashboard = () => {
   // Fonction pour supprimer une photo
   const handleDelete = async (photoId) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/photos/${photoId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/photos/${photoId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -103,7 +103,7 @@ const PhotoListingDashboard = () => {
               className="relative overflow-hidden bg-gray-800 rounded-lg shadow-lg w-full h-60"
             >
               <img
-                src={`http://127.0.0.1:8000/storage/${photo.image_path}`}
+                src={`${process.env.REACT_APP_API_URL}/storage/${photo.image_path}`}
                 alt={photo.title}
                 className="w-full h-full object-cover"
               />

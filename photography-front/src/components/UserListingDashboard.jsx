@@ -9,7 +9,7 @@ const UserListingDashboard = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/users`,
+        `${process.env.REACT_APP_API_URL}/api/users`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -32,7 +32,7 @@ const UserListingDashboard = () => {
       window.confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")
     ) {
       try {
-        await axios.delete(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/api/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

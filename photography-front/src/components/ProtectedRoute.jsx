@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
         const token = localStorage.getItem("token"); // Récupère le token du localStorage
         if (token) {
           const response = await axios.get(
-            `${process.env.REACT_APP_API_URL}/me`,
+            `${process.env.REACT_APP_API_URL}/api/me`,
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Envoyer le token dans le header Authorization

@@ -10,10 +10,10 @@ const LikedPhotos = () => {
   const fetchLikedPhotos = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/liked-photos`,
+        `${process.env.REACT_APP_API_URL}/api/liked-photos`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, 
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -29,7 +29,6 @@ const LikedPhotos = () => {
     fetchLikedPhotos();
   }, []);
 
-  
   if (loading) {
     return <p>Chargement des photos...</p>;
   }
@@ -47,7 +46,7 @@ const LikedPhotos = () => {
         >
           <img
             className="w-full h-full object-cover cursor-pointer"
-            src={`http://127.0.0.1:8000/storage/${photo.image_path}`} 
+            src={`${process.env.REACT_APP_API_URL}/storage/${photo.image_path}`}
             alt={photo.title || "Photo likée"}
           />
           <FaHeart

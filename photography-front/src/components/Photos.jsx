@@ -16,10 +16,10 @@ const Photos = ({ partnerId }) => {
   // Fonction pour récupérer les photos
   const fetchPhotos = async () => {
     try {
-      let url = `${process.env.REACT_APP_API_URL}/photos`;
+      let url = `${process.env.REACT_APP_API_URL}/api/photos`;
 
       if (partnerId) {
-        url = `${process.env.REACT_APP_API_URL}/photos/partner/${partnerId}`;
+        url = `${process.env.REACT_APP_API_URL}/api/photos/partner/${partnerId}`;
       }
 
       const response = await axios.get(url, {
@@ -40,7 +40,7 @@ const Photos = ({ partnerId }) => {
   const fetchLikedPhotos = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/liked-photos`,
+        `${process.env.REACT_APP_API_URL}/api/liked-photos`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -79,7 +79,7 @@ const Photos = ({ partnerId }) => {
     try {
       if (isLiked) {
         await axios.post(
-          `${process.env.REACT_APP_API_URL}/photos/${photo.id}/unlike`,
+          `${process.env.REACT_APP_API_URL}/api/photos/${photo.id}/unlike`,
           {},
           {
             headers: {
@@ -90,7 +90,7 @@ const Photos = ({ partnerId }) => {
         setLikedPhotos(likedPhotos.filter((id) => id !== photo.id));
       } else {
         await axios.post(
-          `${process.env.REACT_APP_API_URL}/photos/${photo.id}/like`,
+          `${process.env.REACT_APP_API_URL}/api/photos/${photo.id}/like`,
           {},
           {
             headers: {
@@ -123,7 +123,7 @@ const Photos = ({ partnerId }) => {
           >
             <img
               className="w-full h-full object-cover cursor-pointer"
-              src={`http://127.0.0.1:8000/storage/${photo.image_path}`}
+              src={`${process.env.REACT_APP_API_URL}/storage/${photo.image_path}`}
               alt={photo.title || "Photo"}
               onClick={() => openModal(photo)}
             />
@@ -151,7 +151,7 @@ const Photos = ({ partnerId }) => {
           <div className="flex justify-center items-center h-full">
             <img
               className="max-w-full h-auto"
-              src={`http://127.0.0.1:8000/storage/${selectedPhoto.image_path}`}
+              src={`${process.env.REACT_APP_API_URL}/storage/${selectedPhoto.image_path}`}
               alt={selectedPhoto.title || "Photo"}
             />
           </div>
