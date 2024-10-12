@@ -3,6 +3,7 @@ import HeroSection from "../components/HeroSection";
 import Footer from "../components/Footer";
 import "../assets/contact.css";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
+import axios from "axios";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,16 +13,76 @@ const Contact = () => {
     phone: "",
     message: "",
   });
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    let formErrors = {};
+
+    // Vérification des champs vides
+    if (!formData.firstName.trim()) {
+      formErrors.firstName = "Le prénom est requis.";
+    }
+    if (!formData.lastName.trim()) {
+      formErrors.lastName = "Le nom est requis.";
+    }
+    if (!formData.email.trim()) {
+      formErrors.email = "L'email est requis.";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      formErrors.email = "L'email est invalide.";
+    }
+    if (formData.phone && !/^\d{10}$/.test(formData.phone)) {
+      formErrors.phone = "Le numéro de téléphone doit contenir 10 chiffres.";
+    }
+    if (!formData.message.trim()) {
+      formErrors.message = "Le message est requis.";
+    }
+
+    setErrors(formErrors);
+
+    // Si aucune erreur n'est détectée, on retourne `true`
+    return Object.keys(formErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Gérer l'envoi du formulaire
-    console.log("Form data:", formData);
+
+    if (validateForm()) {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/contact`,
+          {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message,
+          }
+        );
+        if (response.status === 200) {
+          setSuccess("Votre message a été envoyé avec succès.");
+          setErrors({});
+          setFormData({
+            lastName: "",
+            firstName: "",
+            email: "",
+            phone: "",
+            message: "",
+          });
+        }
+      } catch (error) {
+        setErrors({
+          form: "Erreur lors de l'envoi du message. Veuillez réessayer.",
+        });
+      }
+    }
   };
 
   return (
@@ -57,52 +118,81 @@ const Contact = () => {
                 Remplissez ces quelques informations pour que je puisse mieux
                 comprendre vos besoins et vous répondre rapidement.
               </p>
+
+              {errors.form && <p className="text-red-500">{errors.form}</p>}
+              {success && <p className="text-green-500">{success}</p>}
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    placeholder="Last Name"
-                    className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    placeholder="First Name"
-                    className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white"
-                    required
-                  />
+                  <div>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      placeholder="Nom"
+                      className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white"
+                      required
+                    />
+                    {errors.lastName && (
+                      <p className="text-red-500 text-sm">{errors.lastName}</p>
+                    )}
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      placeholder="Prénom"
+                      className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white"
+                      required
+                    />
+                    {errors.firstName && (
+                      <p className="text-red-500 text-sm">{errors.firstName}</p>
+                    )}
+                  </div>
                 </div>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white"
-                  required
-                />
-                <input
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Phone Number"
-                  className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white"
-                />
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Message"
-                  className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white h-32"
-                  required
-                ></textarea>
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Email"
+                    className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white"
+                    required
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm">{errors.email}</p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Numéro de téléphone"
+                    className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white"
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500 text-sm">{errors.phone}</p>
+                  )}
+                </div>
+                <div>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Message"
+                    className="w-full p-2.5 rounded-lg bg-gray-800 border-none text-white h-32"
+                    required
+                  ></textarea>
+                  {errors.message && (
+                    <p className="text-red-500 text-sm">{errors.message}</p>
+                  )}
+                </div>
                 <button
                   type="submit"
                   className="w-full p-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg text-white font-semibold hover:from-purple-600 hover:to-indigo-700"

@@ -17,11 +17,14 @@ const UpdateAccountForm = () => {
   const fetchUserDetails = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/me`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const user = response.data;
       setName(user.name);
       setEmail(user.email);
@@ -38,8 +41,23 @@ const UpdateAccountForm = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    // Validation du mot de passe (minimum 8 caractères)
+    if (password && password.length < 8) {
+      setError("Le mot de passe doit comporter au moins 8 caractères.");
+      return;
+    }
+
+    // Validation de la confirmation du mot de passe
     if (password !== passwordConfirmation) {
       setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    // Validation de l'email (format correct)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Veuillez entrer une adresse e-mail valide.");
       return;
     }
 
@@ -70,8 +88,22 @@ const UpdateAccountForm = () => {
       setSuccess("Les informations ont été mises à jour avec succès.");
       setError(null); // Enlever les erreurs en cas de succès
     } catch (err) {
-      setError("Erreur lors de la mise à jour des informations.");
-      setSuccess(null); // Enlever le message de succès en cas d'erreur
+      // Gestion des erreurs renvoyées par l'API
+      if (err.response && err.response.data && err.response.data.errors) {
+        const backendErrors = err.response.data.errors;
+        if (backendErrors.email) {
+          setError("Cette adresse email est déjà utilisée.");
+        } else if (backendErrors.password) {
+          setError("Le mot de passe doit comporter au moins 8 caractères.");
+        } else {
+          setError(
+            "Erreur lors de la mise à jour des informations, veuillez vérifier vos données."
+          );
+        }
+      } else {
+        setError("Erreur lors de la mise à jour des informations.");
+        setSuccess(null); // Enlever le message de succès en cas d'erreur
+      }
     }
   };
 

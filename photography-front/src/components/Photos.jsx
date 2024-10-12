@@ -115,29 +115,36 @@ const Photos = ({ partnerId }) => {
 
   return (
     <div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-10">
-        {photos.map((photo, index) => (
-          <div
-            key={index}
-            className="relative aspect-w-1 aspect-h-1 overflow-hidden rounded-lg"
-          >
-            <img
-              className="w-full h-full object-cover cursor-pointer"
-              src={`${process.env.REACT_APP_API_URL}/storage/${photo.image_path}`}
-              alt={photo.title || "Photo"}
-              onClick={() => openModal(photo)}
-            />
-            <FaHeart
-              className={`absolute top-2 right-2 text-3xl cursor-pointer ${
-                likedPhotos.includes(photo.id)
-                  ? "text-red-600"
-                  : "text-gray-300"
-              }`}
-              onClick={() => toggleLike(photo)}
-            />
-          </div>
-        ))}
-      </div>
+      {/* Affichage du message si le partenaire n'a pas de photos */}
+      {partnerId && photos.length === 0 ? (
+        <p className="text-center text-lg text-white">
+          Ce partenaire n'a pas de photo.
+        </p>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-10">
+          {photos.map((photo, index) => (
+            <div
+              key={index}
+              className="relative aspect-w-1 aspect-h-1 overflow-hidden rounded-lg"
+            >
+              <img
+                className="w-full h-full object-cover cursor-pointer"
+                src={`${process.env.REACT_APP_API_URL}/storage/${photo.image_path}`}
+                alt={photo.title || "Photo"}
+                onClick={() => openModal(photo)}
+              />
+              <FaHeart
+                className={`absolute top-2 right-2 text-3xl cursor-pointer ${
+                  likedPhotos.includes(photo.id)
+                    ? "text-red-600"
+                    : "text-gray-300"
+                }`}
+                onClick={() => toggleLike(photo)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Modal */}
       {selectedPhoto && (

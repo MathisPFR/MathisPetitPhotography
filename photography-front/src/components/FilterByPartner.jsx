@@ -27,9 +27,11 @@ const FilterByPartner = ({ onPartnerSelect }) => {
 
   return (
     <div className="filter-section mb-4">
-      <label htmlFor="partner-select" className="block mb-2 text-white">
-        Filtrer par partenaire :
-      </label>
+      <h2 className="text-lg mt-10">
+        <label htmlFor="partner-select" className="block mb-2 text-white">
+          Filtrer par partenaire :
+        </label>
+      </h2>
       <select
         id="partner-select"
         onChange={(e) => onPartnerSelect(e.target.value)}

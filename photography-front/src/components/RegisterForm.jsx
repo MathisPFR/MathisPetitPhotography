@@ -13,8 +13,23 @@ const RegisterForm = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // Vérification de la longueur du mot de passe
+    if (password.length < 8) {
+      setError("Le mot de passe doit comporter au moins 8 caractères.");
+      return;
+    }
+
+    // Vérification de la confirmation du mot de passe
     if (password !== passwordConfirmation) {
       setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    // Validation de l'email (regex simple pour un format d'email basique)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Veuillez entrer une adresse e-mail valide.");
       return;
     }
 
@@ -37,9 +52,23 @@ const RegisterForm = () => {
       // Rediriger vers la page d'accueil après l'inscription réussie
       navigate("/login");
     } catch (err) {
-      setError(
-        "Erreur lors de l'inscription, veuillez vérifier vos informations."
-      );
+      // Vérification si des erreurs spécifiques proviennent du backend
+      if (err.response && err.response.data && err.response.data.errors) {
+        const backendErrors = err.response.data.errors;
+        if (backendErrors.email) {
+          setError("Cette adresse email est déjà utilisée.");
+        } else if (backendErrors.password) {
+          setError("Le mot de passe doit comporter au moins 8 caractères.");
+        } else {
+          setError(
+            "Erreur lors de l'inscription, veuillez vérifier vos informations."
+          );
+        }
+      } else {
+        setError(
+          "Erreur lors de l'inscription, veuillez vérifier vos informations."
+        );
+      }
     }
   };
 
@@ -55,7 +84,7 @@ const RegisterForm = () => {
             htmlFor="name"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Your name
+            Votre nom
           </label>
           <input
             type="text"
@@ -72,7 +101,7 @@ const RegisterForm = () => {
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Your email
+            Votre email
           </label>
           <input
             type="email"
@@ -89,7 +118,7 @@ const RegisterForm = () => {
             htmlFor="password"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Your password
+            Votre mot de passe
           </label>
           <input
             type="password"
@@ -105,7 +134,7 @@ const RegisterForm = () => {
             htmlFor="password_confirmation"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Confirm password
+            Confirmez votre mot de passe
           </label>
           <input
             type="password"
@@ -137,7 +166,7 @@ const RegisterForm = () => {
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         >
-          Register
+          S'enregistrer
         </button>
       </form>
     </div>

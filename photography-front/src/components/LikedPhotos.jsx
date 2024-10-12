@@ -38,23 +38,32 @@ const LikedPhotos = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-10">
-      {likedPhotos.map((photo, index) => (
-        <div
-          key={index}
-          className="relative aspect-w-1 aspect-h-1 overflow-hidden rounded-lg"
-        >
-          <img
-            className="w-full h-full object-cover cursor-pointer"
-            src={`${process.env.REACT_APP_API_URL}/storage/${photo.image_path}`}
-            alt={photo.title || "Photo likée"}
-          />
-          <FaHeart
-            className="absolute top-2 right-2 text-3xl text-red-600"
-            title="Photo likée"
-          />
+    <div className="min-h-screen bg-black text-white py-10">
+      {/* Affichage du message si aucune photo n'a été likée */}
+      {likedPhotos.length === 0 ? (
+        <p className="text-center text-lg">
+          Vous n'avez aucune photo que vous avez mise en favoris.
+        </p>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-10">
+          {likedPhotos.map((photo, index) => (
+            <div
+              key={index}
+              className="relative aspect-w-1 aspect-h-1 overflow-hidden rounded-lg"
+            >
+              <img
+                className="w-full h-full object-cover cursor-pointer"
+                src={`${process.env.REACT_APP_API_URL}/storage/${photo.image_path}`}
+                alt={photo.title || "Photo likée"}
+              />
+              <FaHeart
+                className="absolute top-2 right-2 text-3xl text-red-600"
+                title="Photo likée"
+              />
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };

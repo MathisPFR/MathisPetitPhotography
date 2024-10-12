@@ -13,7 +13,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ListingDashboard from "./pages/dashboard/ListingDashboard";
 import AddPhoto from "./pages/dashboard/AddPhoto";
 import EditPhoto from "./pages/dashboard/EditPhoto";
-import ListingUser from "./pages/dashboard/UserListing";
 import EditUser from "./pages/dashboard/EditUser";
 import UserListing from "./pages/dashboard/UserListing";
 import MentionsLegales from "./pages/MentionsLegales";
@@ -21,18 +20,24 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true); // Ajout de l'état de chargement
 
+  // Vérification de l'authentification lors du montage du composant
   useEffect(() => {
-    // Vérifie si le token est présent dans le localStorage
     const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
     }
-  }, [isAuthenticated]);
+    setLoading(false); // Une fois la vérification terminée, on arrête le chargement
+  }, []);
 
-  // Déplace l'utilisation de useLocation à l'intérieur du Router
+  // Si le chargement n'est pas terminé, on affiche un indicateur de chargement ou rien
+  if (loading) {
+    return <p>Chargement...</p>; // Affichage temporaire pendant la vérification
+  }
+
   return (
     <Router>
       <LocationBasedApp isAuthenticated={isAuthenticated} />
@@ -42,16 +47,16 @@ function App() {
 
 // Un sous-composant pour gérer l'affichage de la Nav
 function LocationBasedApp({ isAuthenticated }) {
-  const location = useLocation(); // Utiliser useLocation ici
+  const location = useLocation();
 
   return (
     <>
-      
-      {!(["/dashboard", "/add-photo", "/users-listing"].includes(location.pathname) || location.pathname.startsWith("/edit-photo") || location.pathname.startsWith("/edit-user")) && <Nav />}
+      {/* Navigation visible sauf sur certaines routes */}
+      {!(["/dashboard", "/add-photo", "/users-listing"].includes(location.pathname) || 
+        location.pathname.startsWith("/edit-photo") || 
+        location.pathname.startsWith("/edit-user")) && <Nav />}
 
-
-      
-      
+      {/* Routes de l'application */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/portfolio" element={<Portfolio />} />
@@ -60,9 +65,12 @@ function LocationBasedApp({ isAuthenticated }) {
         <Route path="/register" element={<Register />} />
         <Route path="/mentions-legales" element={<MentionsLegales />} />
         <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
-        <Route path="/favorite" element={isAuthenticated ? <Favorite /> : <Navigate to="/" />} />
-        <Route path="/account" element={isAuthenticated ? <Account /> : <Navigate to="/" />} />
+        
         <Route path="*" element={<NotFound />} />
+  
+        <Route path="/favorite" element={<ProtectedRoute allowedRoles={['user', 'partner', 'admin']}><Favorite /></ProtectedRoute>} />
+        <Route path="/account" element={<ProtectedRoute allowedRoles={['user', 'partner', 'admin']}><Account /></ProtectedRoute>} />
+  
         <Route
           path="/dashboard"
           element={
